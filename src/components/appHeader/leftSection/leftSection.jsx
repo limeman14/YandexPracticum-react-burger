@@ -1,13 +1,23 @@
 import React from 'react'
+import {MenuItem} from "../menuItem/menuItem";
+import {BurgerIcon, ListIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './leftSection.module.css';
 
 export function LeftSection() {
   return (
-    <ul style={{width: '495px', display: 'flex'}}>
+    <ul className={styles.listItems}>
       <li>
-        <p>Конструктор</p>
+        <MenuItem
+          icon={<BurgerIcon type={"primary"}/>}
+          text='Конструктор'
+          active
+        />
       </li>
-      <li>
-        <p>Лента заказов</p>
+      <li className='ml-2'>
+        <MenuItem
+          icon={<ListIcon type={"secondary"}/>}
+          text='Лента заказов'
+        />
       </li>
     </ul>
   )

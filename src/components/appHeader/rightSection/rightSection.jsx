@@ -1,5 +1,14 @@
+import {MenuItem} from "../menuItem/menuItem";
+import {ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './rightSection.module.css';
+
 export function RightSection() {
   return (
-    <p>Личный кабинет</p>
+    <div className={styles.headerRightSection}>
+      <MenuItem
+        icon={<ProfileIcon type='secondary'/>}
+        text='Личный кабинет'
+      />
+    </div>
   )
 }
