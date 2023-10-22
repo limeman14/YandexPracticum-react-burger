@@ -1,0 +1,5 @@
+.catalogSectionContainer {
+  overflow: hidden auto;
+  max-height: calc(100vh - 88px - 196px);
+  scrollbar-width: thin;
+}

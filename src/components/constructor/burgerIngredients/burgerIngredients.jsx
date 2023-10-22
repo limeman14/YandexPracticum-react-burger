@@ -2,6 +2,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import _ from "lodash";
 import {IngredientCatalogSection} from "../ingredientCatalogSection/ingredientCatalogSection";
+import styles from './burgerIngredients.module.css';
 
 const tabs = [
   {
@@ -22,7 +23,8 @@ export function BurgerIngredients({data}) {
   const [currentTab, setCurrentTab] = useState('bun')
 
   const { bun, sauce, main} = _.groupBy(data, ing => ing.type)
-  console.log(bun, sauce, main)
+
+  console.log(styles)
 
   return (
     <>
@@ -37,7 +39,7 @@ export function BurgerIngredients({data}) {
             children={title}/>
         })}
       </div>
-      <div className='mt-10' style={{overflow: 'hidden auto', maxHeight: 'calc(100vh - 88px - 196px)'}}>
+      <div className={`mt-10 ${styles.catalogSectionContainer}`}>
         <IngredientCatalogSection headingTitle={'Булки'} items={bun}/>
         <IngredientCatalogSection headingTitle={'Соусы'} items={sauce}/>
         <IngredientCatalogSection headingTitle={'Начинки'} items={main}/>

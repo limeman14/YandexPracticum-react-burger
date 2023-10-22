@@ -1,22 +1,22 @@
 import React from 'react';
 import './App.css';
 import {AppHeader} from "../appHeader/appHeader";
-import {MainPanel} from "../constructor/mainPanel/mainPanel";
 import {MainLayout} from "../common/mainLayout/mainLayout";
 import {BurgerIngredients} from "../constructor/burgerIngredients/burgerIngredients";
 import {data} from "../../utils/data";
+import {BurgerConstructor} from "../constructor/burgerConstructor/burgerConstructor";
 
 function App() {
   return (
     <div className='page-container'>
       <AppHeader />
       <MainLayout>
-        <MainPanel>
+        <section className='main_section'>
           <BurgerIngredients data={data}/>
-        </MainPanel>
-        <MainPanel>
-          <div>Корзина</div>
-        </MainPanel>
+        </section>
+        <section className='main_section pt-25 pl-4'>
+          <BurgerConstructor data={data}/>
+        </section>
       </MainLayout>
     </div>
   );

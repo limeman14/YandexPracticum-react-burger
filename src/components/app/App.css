@@ -2,6 +2,18 @@ ul {
   list-style-type: none;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(47, 47, 55);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(133, 133, 173);
+}
+
 .page-container {
   margin: 0 auto;
   min-height: 100%;
@@ -15,6 +27,10 @@ ul {
   height: 88px;
   display: flex;
   align-items: center;
+}
+
+.main_section {
+  width: 600px;
 }
 
 .app-header__nav {
