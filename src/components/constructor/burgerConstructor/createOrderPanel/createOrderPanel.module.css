@@ -1,0 +1,10 @@
+.createOrderPanel__div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.createOrderPanel__sum-div {
+  display: flex;
+  align-items: baseline;
+}

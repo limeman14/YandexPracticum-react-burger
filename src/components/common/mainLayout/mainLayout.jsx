@@ -1,6 +1,6 @@
-import styles from './mainLayout.module.css';
+import styles from './mainLayout.module.css'
 
-export function MainLayout(props) {
+export function MainLayout (props) {
   return (
     <main className={styles.mainLayout}>
       {props.children}

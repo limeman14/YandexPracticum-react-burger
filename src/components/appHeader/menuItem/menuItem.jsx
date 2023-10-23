@@ -1,6 +1,6 @@
 import styles from './menuItem.module.css'
 
-export function MenuItem({icon, text, active}) {
+export function MenuItem ({ icon, text, active }) {
   const textActive = active ? 'text_color_primary' : ''
 
   return (

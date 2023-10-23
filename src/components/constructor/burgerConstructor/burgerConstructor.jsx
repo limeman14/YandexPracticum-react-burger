@@ -1,13 +1,15 @@
-import {useState} from "react";
-import {BunIngredient} from "./bunIngredient/bunIngredient";
-import {MainIngredient} from "./mainIngredient/mainIngredient";
-import {CreateOrderPanel} from "./createOrderPanel/createOrderPanel";
+import { useState } from 'react'
+import { BunIngredient } from './bunIngredient/bunIngredient'
+import { MainIngredient } from './mainIngredient/mainIngredient'
+import { CreateOrderPanel } from './createOrderPanel/createOrderPanel'
+import styles from './burgerConstructor.module.css'
+import PropTypes from 'prop-types'
 
-export function BurgerConstructor({data}) {
+export function BurgerConstructor ({ data }) {
   const findIngredientById = (id) => data.find(el => el._id === id)
   const calculateTotalSum = () => {
     const mainIngredientSum = cart.map(id => findIngredientById(id).price)
-      .reduce((a, b) => a + b, 0);
+      .reduce((a, b) => a + b, 0)
     return mainIngredientSum + 2 * bun.price
   }
 
@@ -20,7 +22,7 @@ export function BurgerConstructor({data}) {
   return (
     <>
       <BunIngredient bun={bun} position='top'/>
-      <ul className='text' style={{maxHeight: '464px', overflowY: 'auto', scrollbarWidth: 'thin'}}>
+      <ul className={`${styles.burgerConstructor__mainIngredientUl} text`}>
         {cart.map((cartItemId, index) => {
           const cartItem = findIngredientById(cartItemId)
           return <MainIngredient key={index} item={cartItem}/>
@@ -29,5 +31,9 @@ export function BurgerConstructor({data}) {
       <BunIngredient bun={bun} position='bottom'/>
       <CreateOrderPanel sum={calculateTotalSum()} onCreateOrderClick={() => console.log('Order created')}/>
     </>
-)
+  )
+}
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.array.isRequired
 }

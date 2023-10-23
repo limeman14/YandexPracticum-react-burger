@@ -1,11 +1,12 @@
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from './mainIngredient.module.css'
+import PropTypes from 'prop-types'
 
-
-export function MainIngredient({item}) {
+export function MainIngredient ({ item }) {
   const { name, image, price } = item
 
   return (
-    <li className='mb-4' style={{display: 'flex', alignItems: 'center'}}>
+    <li className={`${styles.mainIngredientCard__li} mb-4`}>
       <DragIcon type='primary'/>
       <ConstructorElement
         text={name}
@@ -15,4 +16,8 @@ export function MainIngredient({item}) {
       />
     </li>
   )
+}
+
+MainIngredient.propTypes = {
+  item: PropTypes.object.isRequired
 }

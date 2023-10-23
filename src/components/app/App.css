@@ -21,21 +21,11 @@ ul {
   flex-direction: column;
 }
 
-.app-header {
-  width: 100%;
-  background-color: rgba(28, 28, 33, 1);
-  height: 88px;
-  display: flex;
-  align-items: center;
-}
-
-.main_section {
+.main__section {
   width: 600px;
 }
 
-.app-header__nav {
-  width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
+.text_center {
+  text-align: center;
 }
+
