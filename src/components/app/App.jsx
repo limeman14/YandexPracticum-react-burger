@@ -1,23 +1,22 @@
 import React from 'react'
 import './App.css'
-import { AppHeader } from '../appHeader/appHeader'
-import { MainLayout } from '../common/mainLayout/mainLayout'
-import { BurgerIngredients } from '../constructor/burgerIngredients/burgerIngredients'
+import { AppHeader } from '../appHeader/AppHeader'
+import { BurgerIngredients } from '../constructor/burgerIngredients/BurgerIngredients'
 import { data } from '../../utils/data'
-import { BurgerConstructor } from '../constructor/burgerConstructor/burgerConstructor'
+import { BurgerConstructor } from '../constructor/burgerConstructor/BurgerConstructor'
 
 function App () {
   return (
     <div className='page-container'>
       <AppHeader/>
-      <MainLayout>
+      <main className='main__main'>
         <section className='main__section'>
           <BurgerIngredients data={data}/>
         </section>
         <section className='main__section pt-25 pl-4'>
           <BurgerConstructor data={data}/>
         </section>
-      </MainLayout>
+      </main>
     </div>
   )
 }

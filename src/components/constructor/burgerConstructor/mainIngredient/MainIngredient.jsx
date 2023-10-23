@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './mainIngredient.module.css'
+import styles from './MainIngredient.module.css'
 import PropTypes from 'prop-types'
 
 export function MainIngredient ({ item }) {

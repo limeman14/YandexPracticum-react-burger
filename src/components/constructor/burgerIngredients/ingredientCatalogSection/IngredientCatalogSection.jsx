@@ -1,6 +1,6 @@
-import { IngredientCard } from './ingredientCard/ingredientCard'
-import styles from './ingredientCatalogSection.module.css'
+import styles from './IngredientCatalogSection.module.css'
 import PropTypes from 'prop-types'
+import { IngredientCard } from './ingredientCard/IngredientCard'
 
 export function IngredientCatalogSection ({ headingTitle, items }) {
   return (

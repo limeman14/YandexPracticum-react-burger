@@ -1,8 +1,8 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
 import { groupBy } from 'lodash'
-import { IngredientCatalogSection } from './ingredientCatalogSection/ingredientCatalogSection'
-import styles from './burgerIngredients.module.css'
+import { IngredientCatalogSection } from './ingredientCatalogSection/IngredientCatalogSection'
+import styles from './BurgerIngredients.module.css'
 import PropTypes from 'prop-types'
 
 const tabs = [

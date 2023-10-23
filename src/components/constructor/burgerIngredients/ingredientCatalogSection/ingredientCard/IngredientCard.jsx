@@ -1,5 +1,5 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './ingredientCard.module.css'
+import styles from './IngredientCard.module.css'
 import PropTypes from 'prop-types'
 
 export function IngredientCard ({ imageSrc, price, name, count }) {
