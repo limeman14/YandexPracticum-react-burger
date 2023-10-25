@@ -1,0 +1,11 @@
+.ingredientCard__li {
+  display: flex;
+  flex-direction: column;
+  min-height: 208px;
+  position: relative;
+}
+
+.ingredientCard__priceDiv {
+  display: flex;
+  justify-content: center;
+}
