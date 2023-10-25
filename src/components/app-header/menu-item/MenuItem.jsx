@@ -1,4 +1,5 @@
 import styles from './MenuItem.module.css'
+import PropTypes from 'prop-types'
 
 export function MenuItem ({ icon, text, active }) {
   const textActive = active ? 'text_color_primary' : ''
@@ -9,4 +10,10 @@ export function MenuItem ({ icon, text, active }) {
       <span className={`ml-2 ${textActive}`}>{text}</span>
     </a>
   )
+}
+
+MenuItem.propTypes = {
+  icon: PropTypes.node.isRequired,
+  text: PropTypes.string.isRequired,
+  active: PropTypes.bool
 }

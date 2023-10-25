@@ -1,9 +1,10 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
 import { groupBy } from 'lodash'
-import { IngredientCatalogSection } from './ingredientCatalogSection/IngredientCatalogSection'
+import { IngredientCatalogSection } from './ingredient-catalog-section/IngredientCatalogSection'
 import styles from './BurgerIngredients.module.css'
 import PropTypes from 'prop-types'
+import { ingredientType } from '../../../utils/prop-types'
 
 const tabs = [
   {
@@ -48,5 +49,5 @@ export function BurgerIngredients ({ data }) {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.arrayOf(ingredientType).isRequired
 }

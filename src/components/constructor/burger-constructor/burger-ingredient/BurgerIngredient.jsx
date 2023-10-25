@@ -1,8 +1,8 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './MainIngredient.module.css'
-import PropTypes from 'prop-types'
+import styles from './BurgerIngredient.module.css'
+import { ingredientType } from '../../../../utils/prop-types'
 
-export function MainIngredient ({ item }) {
+export function BurgerIngredient ({ item }) {
   const { name, image, price } = item
 
   return (
@@ -18,6 +18,6 @@ export function MainIngredient ({ item }) {
   )
 }
 
-MainIngredient.propTypes = {
-  item: PropTypes.object.isRequired
+BurgerIngredient.propTypes = {
+  item: ingredientType.isRequired
 }
