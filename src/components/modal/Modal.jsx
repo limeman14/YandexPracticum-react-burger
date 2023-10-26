@@ -1,17 +1,17 @@
-import {createPortal} from "react-dom";
-import {ModalOverlay} from "./modal-overlay/ModalOverlay";
+import { createPortal } from 'react-dom'
+import { ModalOverlay } from './modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
-import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from 'prop-types'
 
 const modalDiv = document.getElementById('modal')
 
-export function Modal({closeModal, title, children}) {
-
+export function Modal ({ closeModal, title, children }) {
   return createPortal(
     (
       <ModalOverlay closeModal={closeModal}>
         <div
-          className={`${styles.modal__div} pt-10 pr-10 pl-10`}
+          className={`${styles.modal__div} pt-10 pr-10 pb-15 pl-10`}
           onClick={e => e.stopPropagation()}
         >
           <div className={styles.modal__header}>
@@ -24,4 +24,10 @@ export function Modal({closeModal, title, children}) {
     ),
     modalDiv
   )
+}
+
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
