@@ -1,0 +1,12 @@
+.ingredientImage {
+  align-self: center;
+  width: 480px;
+  height: 240px;
+}
+
+.nutritionTable {
+  align-self: center;
+  display: grid;
+  grid-template-columns: 120px 120px 120px 120px;
+  column-gap: 20px;
+}

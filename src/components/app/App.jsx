@@ -1,33 +1,37 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
-import {AppHeader} from '../app-header/AppHeader'
-import {BurgerIngredients} from '../constructor/burger-ingredients/BurgerIngredients'
-import {BurgerConstructor} from '../constructor/burger-constructor/BurgerConstructor'
+import { AppHeader } from '../app-header/AppHeader'
+import { BurgerIngredients } from '../constructor/burger-ingredients/BurgerIngredients'
+import { BurgerConstructor } from '../constructor/burger-constructor/BurgerConstructor'
 
 const dataUrl = 'https://norma.nomoreparties.space/api/ingredients'
 
 function App () {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingCompleted, setIsLoadingCompleted] = useState(false)
   const [data, setData] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(dataUrl)
-        .then(resp => resp.json())
+        .then(resp => {
+          if (resp.status === 200) {
+            return resp.json()
+          }
+        })
         .catch(err => {
           console.log(err)
-          return {data: []}
+          return { data: [] }
         })
 
-      setData(result.data);
-      setIsLoading(false)
+      setData(result.data)
+      setIsLoadingCompleted(true)
     }
 
     fetchData()
   }, [])
 
   return (
-    !isLoading
+    isLoadingCompleted
       ? <div className='page-container'>
         <AppHeader/>
         <main className='main__main'>
