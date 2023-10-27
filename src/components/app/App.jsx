@@ -3,8 +3,7 @@ import './App.css'
 import { AppHeader } from '../app-header/AppHeader'
 import { BurgerIngredients } from '../constructor/burger-ingredients/BurgerIngredients'
 import { BurgerConstructor } from '../constructor/burger-constructor/BurgerConstructor'
-
-const dataUrl = 'https://norma.nomoreparties.space/api/ingredients'
+import { getIngredients } from '../../utils/burger-api'
 
 function App () {
   const [isLoadingCompleted, setIsLoadingCompleted] = useState(false)
@@ -12,17 +11,7 @@ function App () {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(dataUrl)
-        .then(resp => {
-          if (resp.status === 200) {
-            return resp.json()
-          }
-        })
-        .catch(err => {
-          console.log(err)
-          return { data: [] }
-        })
-
+      const result = await getIngredients()
       setData(result.data)
       setIsLoadingCompleted(true)
     }

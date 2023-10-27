@@ -21,12 +21,14 @@ export function Modal ({ closeModal, title, children }) {
     }
   }, [closeModal])
 
+  const stopClickPropagation = e => e.stopPropagation()
+
   return createPortal(
     (
       <ModalOverlay closeModal={closeModal}>
         <div
           className={`${styles.modal__div} pt-10 pr-10 pb-15 pl-10`}
-          onClick={e => e.stopPropagation()}
+          onClick={stopClickPropagation}
         >
           <div className={styles.modal__header}>
             <h1 className='text text_type_main-large'>{title}</h1>

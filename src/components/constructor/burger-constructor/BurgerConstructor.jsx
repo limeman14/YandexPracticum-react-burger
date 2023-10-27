@@ -10,7 +10,7 @@ import { OrderDetails } from './create-order-panel/order-details/OrderDetails'
 export function BurgerConstructor ({ data }) {
   const [isOrderDetailsVisible, setIsOrderDetailsVisible] = useState(false)
 
-  const orderNumber = useMemo(() => '034536', [])
+  const orderNumber = '034536'
 
   const { bun, ingredients } = useMemo(() => {
     return {
