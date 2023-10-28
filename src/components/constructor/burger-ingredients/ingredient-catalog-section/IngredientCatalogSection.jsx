@@ -10,9 +10,7 @@ export function IngredientCatalogSection ({ headingTitle, items }) {
       <ul className={`${styles.ingredientCards__ul} pt-6 pr-4 pb-10 pl-4`}>
         {items.map((item, index) => {
           return <IngredientCard key={index}
-                                 imageSrc={item.image}
-                                 price={item.price}
-                                 name={item.name}
+                                 ingredient={item}
             /* temporary count definition for test purpose */
                                  count={index === 0 ? 1 : undefined}/>
         })}
