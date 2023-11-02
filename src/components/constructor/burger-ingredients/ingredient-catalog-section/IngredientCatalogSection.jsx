@@ -21,5 +21,5 @@ export function IngredientCatalogSection ({ headingTitle, items }) {
 
 IngredientCatalogSection.propTypes = {
   headingTitle: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(ingredientType).isRequired
+  items: PropTypes.arrayOf(ingredientType.isRequired).isRequired
 }

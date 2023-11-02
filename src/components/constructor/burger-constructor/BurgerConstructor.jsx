@@ -1,16 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useContext, useMemo } from 'react'
 import { BurgerIngredient } from './burger-ingredient/BurgerIngredient'
 import { CreateOrderPanel } from './create-order-panel/CreateOrderPanel'
 import styles from './BurgerConstructor.module.css'
-import PropTypes from 'prop-types'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientType } from '../../../utils/prop-types'
-import { OrderDetails } from './create-order-panel/order-details/OrderDetails'
+import { IngredientsContext } from '../../../context/ingredientsContext'
 
-export function BurgerConstructor ({ data }) {
-  const [isOrderDetailsVisible, setIsOrderDetailsVisible] = useState(false)
-
-  const orderNumber = '034536'
+export function BurgerConstructor () {
+  const data = useContext(IngredientsContext)
 
   const { bun, ingredients } = useMemo(() => {
     return {
@@ -19,17 +15,8 @@ export function BurgerConstructor ({ data }) {
     }
   }, [data])
 
-  const totalSum = useMemo(() => {
-    const mainIngredientsSum = ingredients.map(ingredient => ingredient.price).reduce((a, b) => a + b, 0)
-    return mainIngredientsSum + 2 * bun.price
-  }, [ingredients, bun])
-
-  const openOrderDetails = () => setIsOrderDetailsVisible(true)
-  const closeOrderDetails = () => setIsOrderDetailsVisible(false)
-
   return (
     <>
-      {isOrderDetailsVisible && <OrderDetails orderNumber={orderNumber} onClose={closeOrderDetails}/>}
       <div className='pl-8 mb-4'>
         <ConstructorElement
           text={`${bun.name} (верх)`}
@@ -53,11 +40,7 @@ export function BurgerConstructor ({ data }) {
           isLocked
         />
       </div>
-      <CreateOrderPanel sum={totalSum} onCreateOrderClick={openOrderDetails}/>
+      <CreateOrderPanel bun={bun} ingredients={ingredients}/>
     </>
   )
-}
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired
 }
