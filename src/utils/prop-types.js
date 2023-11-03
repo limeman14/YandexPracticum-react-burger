@@ -12,5 +12,4 @@ export const ingredientType = PropTypes.exact({
   fat: PropTypes.number.isRequired,
   carbohydrates: PropTypes.number.isRequired,
   calories: PropTypes.number.isRequired,
-  __v: PropTypes.number
 })

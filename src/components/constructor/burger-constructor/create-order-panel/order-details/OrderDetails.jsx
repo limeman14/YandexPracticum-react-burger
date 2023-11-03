@@ -20,6 +20,6 @@ export function OrderDetails ({ orderNumber, onClose }) {
 }
 
 OrderDetails.propTypes = {
-  orderNumber: PropTypes.string.isRequired,
+  orderNumber: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired
 }
