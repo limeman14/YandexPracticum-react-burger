@@ -17,7 +17,7 @@ export function CreateOrderPanel ({ bun, ingredients }) {
     return mainIngredientsSum + 2 * bun.price
   }, [bun, ingredients])
 
-  const createOrder2 = async () => {
+  const createOrderHandler = async () => {
     const result = await createOrder([...ingredients, bun])
     setOrderNumber(result.order.number)
     setIsOrderDetailsVisible(true)
@@ -31,7 +31,7 @@ export function CreateOrderPanel ({ bun, ingredients }) {
           <span className='text_type_digits-medium pr-2'>{sum}</span>
           <CurrencyIcon type={'primary'}/>
         </div>
-        <Button htmlType='button' size='large' type='primary' onClick={createOrder2}>
+        <Button htmlType='button' size='large' type='primary' onClick={createOrderHandler}>
           Оформить заказ
         </Button>
       </div>
