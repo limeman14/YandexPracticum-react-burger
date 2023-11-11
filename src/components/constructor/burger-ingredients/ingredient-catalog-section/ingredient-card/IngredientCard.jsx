@@ -1,23 +1,47 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './IngredientCard.module.css'
-import PropTypes from 'prop-types'
 import { ingredientType } from '../../../../../utils/prop-types'
-import { useState } from 'react'
 import { IngredientDetails } from './ingredient-details/IngredientDetails'
+import { useDispatch, useSelector } from 'react-redux'
+import { CLOSE_INGREDIENT_MODAL, OPEN_INGREDIENT_MODAL } from '../../../../../services/actions/burger'
+import { useState } from 'react'
+import { useDrag } from 'react-dnd'
 
-export function IngredientCard ({ ingredient, count }) {
+export function IngredientCard ({ ingredient }) {
   const [isIngredientDetailsVisible, setIsIngredientDetailsVisible] = useState(false)
 
-  const openIngredientDetails = () => setIsIngredientDetailsVisible(true)
-  const closeIngredientDetails = () => setIsIngredientDetailsVisible(false)
+  const dispatch = useDispatch()
+  const openIngredientDetails = () => {
+    dispatch({
+      type: OPEN_INGREDIENT_MODAL,
+      ingredient
+    })
+    setIsIngredientDetailsVisible(true)
+  }
+  const closeIngredientDetails = () => {
+    dispatch({
+      type: CLOSE_INGREDIENT_MODAL
+    })
+    setIsIngredientDetailsVisible(false)
+  }
 
+  const [{ opacity}, dragRef, dragPreviewRef] = useDrag({
+    type: 'ingredient',
+    item: { ...ingredient },
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.5 : 1
+    })
+  })
+
+  const count = useSelector(store => store.burgerIngredients.ingredientCounters[ingredient._id])
   const { image: imageSrc, name, price } = ingredient
+
   return (
     <>
-      {isIngredientDetailsVisible && <IngredientDetails ingredient={ingredient} onClose={closeIngredientDetails}/>}
-      <li className={styles.ingredientCard__li} onClick={openIngredientDetails}>
+      {isIngredientDetailsVisible && <IngredientDetails onClose={closeIngredientDetails}/>}
+      <li ref={dragRef} className={styles.ingredientCard__li} onClick={openIngredientDetails} style={{opacity}}>
         {count && <Counter count={count}/>}
-        <img src={imageSrc} alt={name} className='mb-1 ml-4 mr-4'/>
+        <img ref={dragPreviewRef} src={imageSrc} alt={name} className={`${styles.ingredientCard_img} mb-1 ml-4 mr-4`}/>
         <div className={`${styles.ingredientCard__priceDiv} mb-1`}>
           <span className='text_type_digits-default pr-2'>{price}</span>
           <CurrencyIcon type={'primary'}/>
@@ -30,5 +54,4 @@ export function IngredientCard ({ ingredient, count }) {
 
 IngredientCard.propTypes = {
   ingredient: ingredientType.isRequired,
-  count: PropTypes.number
 }

@@ -1,56 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import { AppHeader } from '../app-header/AppHeader'
 import { BurgerIngredients } from '../constructor/burger-ingredients/BurgerIngredients'
 import { BurgerConstructor } from '../constructor/burger-constructor/BurgerConstructor'
-import { getIngredients } from '../../utils/burger-api'
-import { IngredientsContext } from '../../context/ingredientsContext'
-import { applyMiddleware, compose, legacy_createStore as createStore } from "redux";
-import thunk from "redux-thunk";
-import { rootReducer } from "../../services/reducers/rootReducer";
-import { Provider } from "react-redux";
-
-const composeEnhancers =
-  typeof window === 'object' && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']
-    ? window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']({})
-    : compose;
-
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-const store = createStore(rootReducer, enhancer);
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchIngredients } from '../../services/actions/burger'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 function App () {
-  const [isLoadingCompleted, setIsLoadingCompleted] = useState(false)
-  const [data, setData] = useState([])
+  const { ingredientsRequest, ingredientsError } = useSelector(store => store.burgerIngredients)
 
+  const dispatch = useDispatch()
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getIngredients()
-      setData(result.data)
-      setIsLoadingCompleted(true)
-    }
-
-    fetchData()
-  }, [])
+    dispatch(fetchIngredients())
+  }, [dispatch])
 
   return (
-    <Provider store={store}>
-      {isLoadingCompleted
+      !ingredientsRequest && !ingredientsError
         ? <div className='page-container'>
           <AppHeader/>
           <main className='main__main'>
-            <section className='main__section'>
-              <BurgerIngredients data={data}/>
-            </section>
-            <section className='main__section pt-25 pl-4'>
-              <IngredientsContext.Provider value={data}>
-                <BurgerConstructor/>
-              </IngredientsContext.Provider>
-            </section>
+            <DndProvider backend={HTML5Backend}>
+              <section className='main__section'>
+                <BurgerIngredients />
+              </section>
+              <section className='main__section pt-25 pl-4'>
+                <BurgerConstructor />
+              </section>
+            </DndProvider>
           </main>
         </div>
-        : null}
-    </Provider>
+        : null
   )
 }
 

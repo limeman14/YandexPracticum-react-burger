@@ -2,8 +2,10 @@ import { Modal } from '../../../../modal/Modal'
 import styles from './OrderDetails.module.css'
 import PropTypes from 'prop-types'
 import doneImg from '../../../../../images/done.svg'
+import { useSelector } from 'react-redux'
 
-export function OrderDetails ({ orderNumber, onClose }) {
+export function OrderDetails ({ onClose }) {
+  const orderNumber = useSelector(store => store.order.createdOrder)
   return (
     <Modal closeModal={onClose}>
       <div className={`${styles.orderDetailsModal__div} mt-4`}>
@@ -20,6 +22,5 @@ export function OrderDetails ({ orderNumber, onClose }) {
 }
 
 OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired
 }

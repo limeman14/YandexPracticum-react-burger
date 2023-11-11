@@ -1,11 +1,12 @@
-import { ingredientType } from '../../../../../../utils/prop-types'
 import PropTypes from 'prop-types'
 import { Modal } from '../../../../../modal/Modal'
 import styles from './IngredientDetails.module.css'
 import { NutritionInfoBlock } from './nutrition-info-block/NutritionInfoBlock'
+import { useSelector } from 'react-redux'
 
-export function IngredientDetails ({ ingredient, onClose }) {
-  const { image_large: imageSrc, name, calories, proteins, fat, carbohydrates } = ingredient
+export function IngredientDetails ({ onClose }) {
+  const currentIngredient = useSelector(store => store.ingredientModal.current)
+  const { image_large: imageSrc, name, calories, proteins, fat, carbohydrates } = currentIngredient
 
   return (
     <Modal closeModal={onClose} title='Детали ингредиента'>
@@ -22,6 +23,5 @@ export function IngredientDetails ({ ingredient, onClose }) {
 }
 
 IngredientDetails.propTypes = {
-  ingredient: ingredientType.isRequired,
   onClose: PropTypes.func.isRequired
 }
