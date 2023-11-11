@@ -1,5 +1,5 @@
 import styles from './IngredientDetails.module.css'
-import { NutritionInfoBlock } from './nutrition-info-block/NutritionInfoBlock'
+import { NutritionInfoBlock } from '../nutrition-info-block/NutritionInfoBlock'
 import { useSelector } from 'react-redux'
 
 export function IngredientDetails () {

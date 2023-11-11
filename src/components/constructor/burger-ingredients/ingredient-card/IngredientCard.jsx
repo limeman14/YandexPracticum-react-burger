@@ -1,12 +1,12 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './IngredientCard.module.css'
-import { ingredientType } from '../../../../../utils/prop-types'
-import { IngredientDetails } from './ingredient-details/IngredientDetails'
+import { ingredientType } from '../../../../utils/prop-types'
+import { IngredientDetails } from '../ingredient-details/IngredientDetails'
 import { useDispatch, useSelector } from 'react-redux'
-import { CLOSE_INGREDIENT_MODAL, OPEN_INGREDIENT_MODAL } from '../../../../../services/actions/burger'
+import { CLOSE_INGREDIENT_MODAL, OPEN_INGREDIENT_MODAL } from '../../../../services/actions/burger'
 import { useState } from 'react'
 import { useDrag } from 'react-dnd'
-import { Modal } from "../../../../modal/Modal";
+import { Modal } from "../../../modal/Modal";
 
 export function IngredientCard ({ ingredient }) {
   const [isIngredientDetailsVisible, setIsIngredientDetailsVisible] = useState(false)

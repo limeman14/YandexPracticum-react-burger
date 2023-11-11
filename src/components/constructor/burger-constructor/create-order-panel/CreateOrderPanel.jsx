@@ -1,7 +1,7 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './CreateOrderPanel.module.css'
 import { useCallback, useMemo, useState } from 'react'
-import { OrderDetails } from './order-details/OrderDetails'
+import { OrderDetails } from '../order-details/OrderDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { CLOSE_ORDER_MODAL, createOrder } from '../../../../services/actions/burger'
 import { Modal } from '../../../modal/Modal'
