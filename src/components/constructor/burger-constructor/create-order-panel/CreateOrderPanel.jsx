@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { OrderDetails } from './order-details/OrderDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { CLOSE_ORDER_MODAL, createOrder } from '../../../../services/actions/burger'
+import { Modal } from '../../../modal/Modal'
 
 const mapIngredientsToIds = (ingredients) => {
   return ingredients.map(i => i._id)
@@ -12,14 +13,14 @@ const mapIngredientsToIds = (ingredients) => {
 export function CreateOrderPanel () {
   const [isOrderDetailsVisible, setIsOrderDetailsVisible] = useState(false)
 
-  const {bun, mainIngredients: ingredients} = useSelector(store => store.burgerConstructor)
+  const { bun, mainIngredients: ingredients } = useSelector(store => store.burgerConstructor)
   const dispatch = useDispatch()
   const createOrderHandler = useCallback(() => {
     dispatch(createOrder(mapIngredientsToIds([bun, bun, ...ingredients])))
     setIsOrderDetailsVisible(true)
   }, [bun, ingredients, dispatch])
 
-  const { createOrderRequest, createOrderError} = useSelector(store => store.order)
+  const { createOrderRequest, createOrderError } = useSelector(store => store.order)
   const closeOrderDetails = () => {
     dispatch({ type: CLOSE_ORDER_MODAL })
     setIsOrderDetailsVisible(false)
@@ -32,7 +33,10 @@ export function CreateOrderPanel () {
 
   return (
     <>
-      {(!createOrderRequest && !createOrderError && isOrderDetailsVisible) && <OrderDetails onClose={closeOrderDetails}/>}
+      {(!createOrderRequest && !createOrderError && isOrderDetailsVisible) &&
+        <Modal closeModal={closeOrderDetails}>
+          <OrderDetails/>
+        </Modal>}
       <div className={`${styles.createOrderPanel__div} pr-4`}>
         <div className={`${styles.createOrderPanel__sumDiv} mr-10`}>
           <span className='text_type_digits-medium pr-2'>{sum}</span>

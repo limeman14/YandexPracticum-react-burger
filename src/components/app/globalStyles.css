@@ -14,25 +14,6 @@ ul {
   background-color: rgb(133, 133, 173);
 }
 
-.page-container {
-  margin: 0 auto;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.main__main {
-  margin: 0 auto;
-  width: 1240px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.main__section {
-  width: 600px;
-}
-
 .text_center {
   text-align: center;
 }
-
