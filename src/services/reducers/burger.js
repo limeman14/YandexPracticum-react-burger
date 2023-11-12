@@ -5,18 +5,16 @@ import {
   CREATE_ORDER_ERROR,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS, DECREMENT_INGREDIENT_COUNTER,
-  DELETE_INGREDIENT,
+  REMOVE_INGREDIENT,
   FETCH_INGREDIENTS_ERROR,
   FETCH_INGREDIENTS_REQUEST,
   FETCH_INGREDIENTS_SUCCESS, INCREMENT_INGREDIENT_COUNTER, UPDATE_CONSTRUCTOR_LIST,
-  OPEN_INGREDIENT_MODAL
+  OPEN_INGREDIENT_MODAL, CLEAR_INGREDIENT_COUNTERS, CLEAR_CONSTRUCTOR_LIST
 } from '../actions/burger'
 
 const burgerIngredientsInitialState = {
   ingredients: [],
-  ingredientCounters: {
-    '643d69a5c3f7b9001cfa093c': 2
-  },
+  ingredientCounters: {},
   ingredientsRequest: true,
   ingredientsError: false
 }
@@ -65,13 +63,19 @@ export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, 
     }
     case DECREMENT_INGREDIENT_COUNTER: {
       const newIngredientCounters = { ...state.ingredientCounters }
-      const id = action._id
+      const id = action.id
       const newCounterValue = newIngredientCounters[id] - 1
       newIngredientCounters[id] = newCounterValue === 0 ? undefined : newCounterValue
 
       return {
         ...state,
         ingredientCounters: newIngredientCounters
+      }
+    }
+    case CLEAR_INGREDIENT_COUNTERS: {
+      return {
+        ...state,
+        ingredientCounters: {}
       }
     }
     default:
@@ -101,20 +105,7 @@ export const ingredientModalReducer = (state = ingredientModalInitialState, acti
 }
 
 const burgerConstructorInitialState = {
-  bun: {
-    '_id': '643d69a5c3f7b9001cfa093c',
-    'name': 'Краторная булка N-200i',
-    'type': 'bun',
-    'proteins': 80,
-    'fat': 24,
-    'carbohydrates': 53,
-    'calories': 420,
-    'price': 1255,
-    'image': 'https://code.s3.yandex.net/react/code/bun-02.png',
-    'image_mobile': 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-    'image_large': 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-    '__v': 0
-  },
+  bun: null,
   mainIngredients: []
 }
 
@@ -130,7 +121,7 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
       }
       return newState
     }
-    case DELETE_INGREDIENT: {
+    case REMOVE_INGREDIENT: {
       return {
         ...state,
         mainIngredients: state.mainIngredients.filter(i => i.dragId !== action.id)
@@ -140,6 +131,13 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
       return {
         ...state,
         mainIngredients: action.newMainIngredients
+      }
+    }
+    case CLEAR_CONSTRUCTOR_LIST: {
+      return {
+        ...state,
+        bun: null,
+        mainIngredients: []
       }
     }
     default:

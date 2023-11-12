@@ -4,7 +4,11 @@ import styles from './BurgerConstructor.module.css'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
-import { ADD_INGREDIENT, INCREMENT_INGREDIENT_COUNTER, UPDATE_CONSTRUCTOR_LIST } from '../../../services/actions/burger'
+import {
+  addToConstructor,
+  incrementCounter,
+  updateConstructorList
+} from '../../../services/actions/burger'
 import { useCallback } from 'react'
 
 export function BurgerConstructor () {
@@ -15,17 +19,8 @@ export function BurgerConstructor () {
   const [, dropTargetRef] = useDrop({
     accept: 'ingredient',
     drop(ingredient) {
-      dispatch({
-        type: ADD_INGREDIENT,
-        ingredient: {
-          ...ingredient,
-          dragId: Math.random()
-        }
-      })
-      dispatch({
-        type: INCREMENT_INGREDIENT_COUNTER,
-        ingredient
-      })
+      dispatch(addToConstructor(ingredient))
+      dispatch(incrementCounter(ingredient))
     }
   })
 
@@ -35,15 +30,15 @@ export function BurgerConstructor () {
     newMainIngredients.splice(dragIndex, 1)
     newMainIngredients.splice(hoverIndex, 0, dragCard)
 
-    dispatch({
-      type: UPDATE_CONSTRUCTOR_LIST,
-      newMainIngredients,
-    })
+    dispatch(updateConstructorList(newMainIngredients))
   }, [ingredients, dispatch])
 
   return (
     <>
       <div ref={dropTargetRef}>
+        {!bun && ingredients.length === 0 && <div className='pl-8 mb-4 text_type_main-medium text_center'>
+          Пожалуйста, перенесите сюда булку и ингридиенты для создания заказа
+        </div>}
         <section className='pl-8 mb-4'>
           {bun && <ConstructorElement
             text={`${bun.name} (верх)`}

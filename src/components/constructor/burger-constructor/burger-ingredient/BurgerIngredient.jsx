@@ -2,7 +2,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import styles from './BurgerIngredient.module.css'
 import { ingredientType } from '../../../../utils/prop-types'
 import { useDispatch } from 'react-redux'
-import { DECREMENT_INGREDIENT_COUNTER, DELETE_INGREDIENT } from '../../../../services/actions/burger'
+import { decrementCounter, removeFromConstructor } from '../../../../services/actions/burger'
 import PropTypes from 'prop-types'
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
@@ -10,14 +10,8 @@ import { useDrag, useDrop } from 'react-dnd'
 export function BurgerIngredient ({ index, ingredient, moveCard }) {
   const dispatch = useDispatch()
   const removeIngredient = () => {
-    dispatch({
-      type: DELETE_INGREDIENT,
-      id: ingredient.dragId
-    })
-    dispatch({
-      type: DECREMENT_INGREDIENT_COUNTER,
-      id: ingredient._id
-    })
+    dispatch(removeFromConstructor(ingredient.dragId))
+    dispatch(decrementCounter(ingredient._id))
   }
 
   const ref = useRef()
