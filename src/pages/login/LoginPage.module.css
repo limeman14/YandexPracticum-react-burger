@@ -1,0 +1,18 @@
+.loginForm__container {
+  margin: 180px auto 0 auto;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm__form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.loginForm__link {
+  color: var(--colors-interface-accent);
+  text-decoration: none;
+}

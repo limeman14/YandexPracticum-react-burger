@@ -22,3 +22,23 @@ export function createOrderRequest (ingredients) {
     body: JSON.stringify({ ingredients })
   })
 }
+
+export function loginRequest (email, password) {
+  return request('auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  })
+}
+
+export function registerRequest (form) {
+  return request('auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ...form })
+  })
+}
