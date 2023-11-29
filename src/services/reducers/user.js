@@ -1,10 +1,21 @@
 import {
+  FORGOT_PASSWORD_ERROR,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  GET_USER_ERROR,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
   LOGIN_ERROR,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT_ERROR,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
   REGISTER_ERROR,
   REGISTER_REQUEST,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS
 } from '../actions/user'
 
 const userInitialState = {
@@ -15,9 +26,20 @@ const userInitialState = {
   isAuthenticated: false,
   loginRequest: false,
   loginError: false,
+  getUserRequest: false,
+  getUserError: false,
+  logoutRequest: false,
+  logoutError: false,
 
   registerRequest: false,
-  registerError: false
+  registerError: false,
+
+  forgotPasswordRequest: false,
+  forgotPasswordError: false,
+  isPasswordResetting: false,
+  resetPasswordRequest: false,
+  resetPasswordError: false,
+  isPasswordResetSuccess: false
 }
 
 export const userReducer = (state = userInitialState, action) => {
@@ -44,6 +66,50 @@ export const userReducer = (state = userInitialState, action) => {
         loginError: true
       }
     }
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        getUserRequest: true
+      }
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        getUserRequest: false,
+        getUserError: false,
+        user: action.user,
+        isAuthenticated: true
+      }
+    }
+    case GET_USER_ERROR: {
+      return {
+        ...state,
+        getUserRequest: false,
+        getUserError: true
+      }
+    }
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        logoutRequest: true
+      }
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: {},
+        logoutRequest: false,
+        logoutError: false
+      }
+    }
+    case LOGOUT_ERROR: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutError: true
+      }
+    }
     case REGISTER_REQUEST: {
       return {
         ...state,
@@ -64,6 +130,43 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         registerRequest: false,
         registerError: true
+      }
+    }
+    case FORGOT_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        forgotPasswordRequest: true,
+        isPasswordResetSuccess: false
+      }
+    }
+    case FORGOT_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        forgotPasswordRequest: false,
+        forgotPasswordError: false,
+        isPasswordResetting: true
+      }
+    }
+    case FORGOT_PASSWORD_ERROR: {
+      return {
+        ...state,
+        forgotPasswordRequest: false,
+        forgotPasswordError: true
+      }
+    }
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPasswordRequest: true
+      }
+    }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        resetPasswordRequest: false,
+        resetPasswordError: false,
+        isPasswordResetting: false,
+        isPasswordResetSuccess: true
       }
     }
     default:

@@ -1,15 +1,18 @@
 import styles from './LoginPage.module.css'
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../services/actions/user'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 
 export function LoginPage () {
+  const { isAuthenticated } = useSelector(store => store.user)
   const [formValues, setFormValues] = useState({
     email: '',
     password: ''
   })
+  const dispatch = useDispatch()
+  const location = useLocation();
 
   const onInputChange = e => {
     const { target } = e
@@ -19,11 +22,14 @@ export function LoginPage () {
     })
   }
 
-  const dispatch = useDispatch()
   const submit = e => {
     e.preventDefault()
     const { email, password } = formValues
     dispatch(login(email, password))
+  }
+
+  if (isAuthenticated) {
+    return (<Navigate to={location.state?.from || '/'} replace />)
   }
 
   return (
