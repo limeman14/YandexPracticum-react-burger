@@ -15,7 +15,10 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS
+  RESET_PASSWORD_SUCCESS,
+  UPDATE_USER_ERROR,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS
 } from '../actions/user'
 
 const userInitialState = {
@@ -28,6 +31,8 @@ const userInitialState = {
   loginError: false,
   getUserRequest: false,
   getUserError: false,
+  updateUserRequest: false,
+  updateUserError: false,
   logoutRequest: false,
   logoutError: false,
 
@@ -86,6 +91,27 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         getUserRequest: false,
         getUserError: true
+      }
+    }
+    case UPDATE_USER_REQUEST: {
+      return {
+        ...state,
+        updateUserRequest: true
+      }
+    }
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        updateUserRequest: false,
+        updateUserError: false,
+        user: action.user
+      }
+    }
+    case UPDATE_USER_ERROR: {
+      return {
+        ...state,
+        updateUserError: true,
+        updateUserRequest: false
       }
     }
     case LOGOUT_REQUEST: {

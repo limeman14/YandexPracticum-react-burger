@@ -1,0 +1,35 @@
+.profilePage__container {
+  margin: 120px auto 0 auto;
+  width: 1240px;
+  display: flex;
+}
+
+.profilePage__leftSection {
+  width: 320px;
+  margin-right: 60px;
+}
+
+.logout__button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.profilePage__hint {
+  color: #8585AD;
+  opacity: 0.4;
+}
+
+.profilePage__navElement {
+  min-height: 64px;
+  align-items: center;
+  display: flex;
+}
+
+.profilePage_navLink {
+  text-decoration: none;
+}
+
+.profilePage_navLink_active {
+  color: var(--text-primary-color);
+}

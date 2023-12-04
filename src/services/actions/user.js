@@ -5,7 +5,8 @@ import {
   logoutRequest,
   refreshTokenRequest,
   registerRequest,
-  resetPasswordRequest
+  resetPasswordRequest,
+  updateUserRequest
 } from '../../utils/api'
 import { setCookie } from '../../utils/cookies'
 
@@ -16,6 +17,10 @@ export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const GET_USER_REQUEST = 'GET_USER_REQUEST'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 export const GET_USER_ERROR = 'GET_USER_ERROR'
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST'
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS'
+export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR'
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
@@ -74,6 +79,30 @@ export function getUser() {
         dispatch({
           type: GET_USER_ERROR
         })
+        console.error(err)
+      }
+    })
+  }
+}
+
+export function updateUser (newValues) {
+  return function (dispatch) {
+    dispatch({
+      type: UPDATE_USER_REQUEST
+    })
+    updateUserRequest(newValues).then(res => {
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        user: res.user,
+      })
+    }).catch(err => {
+      if (err.message === 'jwt expired') {
+        dispatch(refreshToken(updateUser(newValues)));
+      } else {
+        dispatch({
+          type: UPDATE_USER_ERROR
+        })
+        console.error(err)
       }
     })
   }
@@ -116,8 +145,7 @@ export function register (form) {
         type: REGISTER_SUCCESS,
         user: res.user
       })
-      setCookie('accessToken', res.accessToken)
-      localStorage.setItem('refreshToken', res.refreshToken)
+      saveTokens(res)
     }).catch(err => {
       dispatch({
         type: REGISTER_ERROR

@@ -1,0 +1,11 @@
+.editProfileForm__form {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.editProfileForm__buttons {
+  display: flex;
+  gap: 24px;
+}

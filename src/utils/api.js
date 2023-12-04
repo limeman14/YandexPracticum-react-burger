@@ -45,6 +45,17 @@ export function getUserRequest () {
   })
 }
 
+export function updateUserRequest (newValues) {
+  return request('auth/user', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': getCookie('accessToken')
+    },
+    body: JSON.stringify({ ...newValues })
+  })
+}
+
 export function refreshTokenRequest () {
   return request('auth/token', {
     method: 'POST',
