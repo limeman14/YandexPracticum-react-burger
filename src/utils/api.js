@@ -19,7 +19,8 @@ export function createOrderRequest (ingredients) {
   return request('orders', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': getCookie('accessToken')
     },
     body: JSON.stringify({ ingredients })
   })

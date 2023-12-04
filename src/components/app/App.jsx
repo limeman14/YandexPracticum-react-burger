@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import styles from './App.module.css'
 import { AppHeader } from '../app-header/AppHeader'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchIngredients } from '../../services/actions/burger'
+import { fetchIngredients, removeIngredientFromModal } from '../../services/actions/burger'
 import './globalStyles.css'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { ConstructorPage } from '../../pages/constructor/ConstructorPage'
 import { LoginPage } from '../../pages/login/LoginPage'
 import { RegisterPage } from '../../pages/register/RegisterPage'
@@ -13,12 +13,23 @@ import { ResetPasswordPage } from '../../pages/reset-password/ResetPasswordPage'
 import { ProtectedRoute } from '../hoc/ProtectedRoute'
 import { ProfilePage } from '../../pages/profile/ProfilePage'
 import { getUser } from '../../services/actions/user'
+import { IngredientDetailsPage } from '../../pages/ingredient-details/IngredientDetailsPage'
+import { NotFoundPage } from '../../pages/not-found/NotFoundPage'
+import { Modal } from '../modal/Modal'
+import { IngredientDetails } from '../constructor/burger-ingredients/ingredient-details/IngredientDetails'
 
 function App () {
   const { ingredientsRequest, ingredientsError } = useSelector(store => store.burgerIngredients)
   const { getUserRequest } = useSelector(store => store.user)
+  const { current: isIngredientSetInModal } = useSelector(store => store.ingredientModal)
   const location = useLocation()
-  const background = location.state && location.state.background;
+  const navigate = useNavigate()
+  const background = location.state && location.state.background
+
+  const handleIngredientModalClose = () => {
+    navigate(-1)
+    dispatch(removeIngredientFromModal())
+  }
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -42,7 +53,21 @@ function App () {
         <Route path='/profile' element={
           <ProtectedRoute element={<ProfilePage />} />
         }/>
+        <Route path='/ingredients/:id' element={<IngredientDetailsPage />}/>
+        <Route path='*' element={<NotFoundPage />}/>
       </Routes>
+      {background && isIngredientSetInModal && (
+        <Routes>
+          <Route
+            path='/ingredients/:id'
+            element={
+              <Modal closeModal={handleIngredientModalClose} title='Детали ингредиента'>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
     </div>
   )
 }
