@@ -17,6 +17,8 @@ import { IngredientDetailsPage } from '../../pages/ingredient-details/Ingredient
 import { NotFoundPage } from '../../pages/not-found/NotFoundPage'
 import { Modal } from '../modal/Modal'
 import { IngredientDetails } from '../constructor/burger-ingredients/ingredient-details/IngredientDetails'
+import { ROUTES } from '../../utils/app-routes'
+import { getCookie } from '../../utils/cookies'
 
 function App () {
   const { ingredientsRequest, ingredientsError } = useSelector(store => store.burgerIngredients)
@@ -33,7 +35,10 @@ function App () {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getUser())
+    if (getCookie('accessToken')) {
+      console.log(getCookie('accessToken'))
+      dispatch(getUser())
+    }
     dispatch(fetchIngredients())
   }, [dispatch])
 
@@ -45,21 +50,21 @@ function App () {
     <div className={styles.pageContainer}>
       <AppHeader/>
       <Routes location={background || location}>
-        <Route path='/' element={<ConstructorPage />}/>
-        <Route path='/login' element={<LoginPage />}/>
-        <Route path='/register' element={<RegisterPage />}/>
-        <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
-        <Route path='/reset-password' element={<ResetPasswordPage />}/>
-        <Route path='/profile' element={
+        <Route path={ROUTES.BASE} element={<ConstructorPage />}/>
+        <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
+        <Route path={ROUTES.REGISTER} element={<RegisterPage />}/>
+        <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />}/>
+        <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage />}/>
+        <Route path={ROUTES.PROFILE} element={
           <ProtectedRoute element={<ProfilePage />} />
         }/>
-        <Route path='/ingredients/:id' element={<IngredientDetailsPage />}/>
-        <Route path='*' element={<NotFoundPage />}/>
+        <Route path={ROUTES.INGREDIENT_ID} element={<IngredientDetailsPage />}/>
+        <Route path={ROUTES.ANY} element={<NotFoundPage />}/>
       </Routes>
       {background && isIngredientSetInModal && (
         <Routes>
           <Route
-            path='/ingredients/:id'
+            path={ROUTES.INGREDIENT_ID}
             element={
               <Modal closeModal={handleIngredientModalClose} title='Детали ингредиента'>
                 <IngredientDetails />

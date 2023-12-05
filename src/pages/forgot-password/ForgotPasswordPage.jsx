@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
 import { forgotPassword } from '../../services/actions/user'
+import { ROUTES } from '../../utils/app-routes'
 
 export function ForgotPasswordPage () {
   const { isAuthenticated, isPasswordResetting } = useSelector(store => store.user)
@@ -12,11 +13,11 @@ export function ForgotPasswordPage () {
   const [email, setEmail] = useState('')
 
   if (isAuthenticated) {
-    return (<Navigate to='/' replace />)
+    return (<Navigate to={ROUTES.BASE} replace />)
   }
 
   if (isPasswordResetting) {
-    return (<Navigate to='/reset-password' replace />)
+    return (<Navigate to={ROUTES.RESET_PASSWORD} replace />)
   }
 
   const onInputChange = e => {
@@ -36,7 +37,7 @@ export function ForgotPasswordPage () {
         <Button htmlType='submit' type='primary'>Восстановить</Button>
       </form>
       <p className='text text_center text_type_main-default text_color_inactive'>
-        Вспомнили пароль? <Link to='/login' className={styles.forgotPasswordForm__link}>Войти</Link>
+        Вспомнили пароль? <Link to={ROUTES.LOGIN} className={styles.forgotPasswordForm__link}>Войти</Link>
       </p>
     </div>
   )

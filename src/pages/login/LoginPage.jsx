@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../services/actions/user'
 import { Link, Navigate, useLocation } from 'react-router-dom'
+import { ROUTES } from '../../utils/app-routes'
 
 export function LoginPage () {
   const { isAuthenticated } = useSelector(store => store.user)
@@ -29,7 +30,7 @@ export function LoginPage () {
   }
 
   if (isAuthenticated) {
-    return (<Navigate to={location.state?.from || '/'} replace />)
+    return (<Navigate to={location.state?.from || ROUTES.BASE} replace />)
   }
 
   return (
@@ -41,10 +42,10 @@ export function LoginPage () {
         <Button htmlType='submit' type='primary'>Войти</Button>
       </form>
       <p className='text text_center text_type_main-default text_color_inactive mb-4'>
-        Вы — новый пользователь? <Link to='/register' className={styles.loginForm__link}>Зарегистрироваться</Link>
+        Вы — новый пользователь? <Link to={ROUTES.REGISTER} className={styles.loginForm__link}>Зарегистрироваться</Link>
       </p>
       <p className='text text_center text_type_main-default text_color_inactive'>
-        Забыли пароль? <Link to='/forgot-password' className={styles.loginForm__link}>Восстановить пароль</Link>
+        Забыли пароль? <Link to={ROUTES.FORGOT_PASSWORD} className={styles.loginForm__link}>Восстановить пароль</Link>
       </p>
     </div>
   )
