@@ -2,7 +2,8 @@ import React from 'react'
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './AppHeader.module.css'
 import { MenuItem } from './menu-item/MenuItem'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { ROUTES } from '../../utils/app-routes'
 
 export function AppHeader () {
   const { pathname } = useLocation()
@@ -26,7 +27,9 @@ export function AppHeader () {
             />
           </li>
         </ul>
-        <Logo/>
+        <Link to={ROUTES.BASE}>
+          <Logo/>
+        </Link>
         <div className={styles.appHeader__rightSectionDiv}>
           <MenuItem
             icon={ProfileIcon}

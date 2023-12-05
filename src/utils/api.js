@@ -88,7 +88,7 @@ export function registerRequest (form) {
 }
 
 export function forgotPasswordRequest (email) {
-  return request('auth/password-reset', {
+  return request('password-reset', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ export function forgotPasswordRequest (email) {
 }
 
 export function resetPasswordRequest (form) {
-  return request('auth/password-reset/reset', {
+  return request('password-reset/reset', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

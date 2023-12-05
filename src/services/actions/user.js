@@ -124,7 +124,7 @@ export function logout () {
       dispatch({
         type: LOGOUT_SUCCESS
       })
-      setCookie('accessToken', null, { expires: -1 })
+      setCookie('accessToken', '', { expires: -1 })
       localStorage.removeItem('refreshToken')
     }).catch(err => {
       dispatch({

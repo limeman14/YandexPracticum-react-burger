@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../../services/actions/user'
+import { ROUTES } from '../../utils/app-routes'
 
 export function RegisterPage () {
   const { isAuthenticated } = useSelector(store => store.user)
@@ -16,7 +17,7 @@ export function RegisterPage () {
   })
 
   if (isAuthenticated) {
-    return (<Navigate to='/' replace />)
+    return (<Navigate to={ROUTES.BASE} replace />)
   }
 
   const onInputChange = e => {
@@ -42,7 +43,7 @@ export function RegisterPage () {
         <Button htmlType='submit' type='primary'>Зарегистрироваться</Button>
       </form>
       <p className='text text_center text_type_main-default text_color_inactive'>
-        Уже зарегистрированы? <Link to='/login' className={styles.registerForm__link}>Войти</Link>
+        Уже зарегистрированы? <Link to={ROUTES.LOGIN} className={styles.registerForm__link}>Войти</Link>
       </p>
     </div>
   )

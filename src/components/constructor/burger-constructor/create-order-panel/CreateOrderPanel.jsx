@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { closeOrderModal, createOrder } from '../../../../services/actions/burger'
 import { Modal } from '../../../modal/Modal'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../../../utils/app-routes'
 
 const mapIngredientsToIds = (ingredients) => {
   return ingredients.map(i => i._id)
@@ -25,7 +26,7 @@ export function CreateOrderPanel () {
       dispatch(createOrder(mapIngredientsToIds([bun, bun, ...ingredients])))
       setIsOrderDetailsVisible(true)
     } else {
-      navigate('/login', { state: { from: location } })
+      navigate(ROUTES.LOGIN, { state: { from: location } })
     }
   }, [bun, ingredients, dispatch, isAuthenticated, location, navigate])
 
