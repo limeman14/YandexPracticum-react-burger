@@ -1,0 +1,10 @@
+.notFoundPage__container {
+  display: flex;
+  margin: 120px auto 0 auto;
+  flex-direction: column;
+}
+
+.notFoundPage__link {
+  text-decoration: none;
+  color: var(--colors-interface-accent);
+}

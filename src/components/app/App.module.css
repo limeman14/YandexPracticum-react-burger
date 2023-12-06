@@ -4,14 +4,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.main__main {
-  margin: 0 auto;
-  width: 1240px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.main__section {
-  width: 600px;
-}

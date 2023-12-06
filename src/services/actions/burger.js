@@ -1,4 +1,4 @@
-import { createOrderRequest, getIngredientsRequest } from '../../utils/burger-api'
+import { createOrderRequest, getIngredientsRequest } from '../../utils/api'
 
 export const FETCH_INGREDIENTS_REQUEST = 'FETCH_INGREDIENTS_REQUEST'
 export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS'
@@ -7,8 +7,8 @@ export const INCREMENT_INGREDIENT_COUNTER = 'INCREMENT_INGREDIENT_COUNTER'
 export const DECREMENT_INGREDIENT_COUNTER = 'DECREMENT_INGREDIENT_COUNTER'
 export const CLEAR_INGREDIENT_COUNTERS = 'CLEAR_INGREDIENT_COUNTERS'
 
-export const OPEN_INGREDIENT_MODAL = 'OPEN_INGREDIENT_MODAL'
-export const CLOSE_INGREDIENT_MODAL = 'CLOSE_INGREDIENT_MODAL'
+export const SET_INGREDIENT_FOR_MODAL = 'SET_INGREDIENT_FOR_MODAL'
+export const REMOVE_INGREDIENT_FROM_MODAL = 'REMOVE_INGREDIENT_FROM_MODAL'
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'
 export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT'
@@ -51,15 +51,15 @@ export function decrementCounter(id) {
   }
 }
 
-export function openIngredientModal(ingredient) {
+export function setIngredientForModal(ingredient) {
   return {
-    type: OPEN_INGREDIENT_MODAL,
+    type: SET_INGREDIENT_FOR_MODAL,
     ingredient
   }
 }
-export function closeIngredientModal() {
+export function removeIngredientFromModal() {
   return {
-    type: CLOSE_INGREDIENT_MODAL
+    type: REMOVE_INGREDIENT_FROM_MODAL
   }
 }
 
