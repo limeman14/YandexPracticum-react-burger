@@ -1,33 +1,42 @@
 import { getCookie } from './cookies'
+import { ProfileForm, ProfileFormEdit, ResetPasswordForm } from "./types/common-types";
+import {
+  CreateOrderResponse,
+  GetIngredientsResponse,
+  LoginResponse,
+  RegisterResponse,
+  TokensInfoResponse,
+  UserInfoResponse
+} from "./types/api-types";
 
 const BASE_NORMA_API_URL = 'https://norma.nomoreparties.space/api'
 
-const checkResponse = res => {
+const checkResponse = <RespType>(res: Response): Promise<RespType> => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 }
 
-async function request (endpoint, options) {
+async function request<RespType> (endpoint: string, options?: RequestInit): Promise<RespType> {
   const res = await fetch(`${BASE_NORMA_API_URL}/${endpoint}`, options);
-  return checkResponse(res);
+  return checkResponse<RespType>(res);
 }
 
 export function getIngredientsRequest () {
-  return request('ingredients')
+  return request<GetIngredientsResponse>('ingredients')
 }
 
-export function createOrderRequest (ingredients) {
-  return request('orders', {
+export function createOrderRequest (ingredientIds: ReadonlyArray<string>) {
+  return request<CreateOrderResponse>('orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': getCookie('accessToken')
+      'Authorization': getCookie('accessToken')!
     },
-    body: JSON.stringify({ ingredients })
+    body: JSON.stringify({ ingredients: ingredientIds })
   })
 }
 
-export function loginRequest (email, password) {
-  return request('auth/login', {
+export function loginRequest (email: string, password: string) {
+  return request<LoginResponse>('auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -37,28 +46,28 @@ export function loginRequest (email, password) {
 }
 
 export function getUserRequest () {
-  return request('auth/user', {
+  return request<UserInfoResponse>('auth/user', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': getCookie('accessToken')
+      'Authorization': getCookie('accessToken')!
     }
   })
 }
 
-export function updateUserRequest (newValues) {
-  return request('auth/user', {
+export function updateUserRequest (newValues: ProfileFormEdit) {
+  return request<UserInfoResponse>('auth/user', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': getCookie('accessToken')
+      'Authorization': getCookie('accessToken')!
     },
     body: JSON.stringify({ ...newValues })
   })
 }
 
 export function refreshTokenRequest () {
-  return request('auth/token', {
+  return request<TokensInfoResponse>('auth/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -68,7 +77,7 @@ export function refreshTokenRequest () {
 }
 
 export function logoutRequest () {
-  return request('auth/logout', {
+  return request<void>('auth/logout', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -77,8 +86,8 @@ export function logoutRequest () {
   })
 }
 
-export function registerRequest (form) {
-  return request('auth/register', {
+export function registerRequest (form: ProfileForm) {
+  return request<RegisterResponse>('auth/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -87,8 +96,8 @@ export function registerRequest (form) {
   })
 }
 
-export function forgotPasswordRequest (email) {
-  return request('password-reset', {
+export function forgotPasswordRequest (email: string) {
+  return request<void>('password-reset', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -97,8 +106,8 @@ export function forgotPasswordRequest (email) {
   })
 }
 
-export function resetPasswordRequest (form) {
-  return request('password-reset/reset', {
+export function resetPasswordRequest (form: ResetPasswordForm) {
+  return request<void>('password-reset/reset', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

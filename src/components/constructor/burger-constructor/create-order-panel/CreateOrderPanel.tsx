@@ -7,18 +7,19 @@ import { closeOrderModal, createOrder } from '../../../../services/actions/burge
 import { Modal } from '../../../modal/Modal'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../../../utils/app-routes'
+import { Ingredient } from "../../../../utils/types/common-types";
 
-const mapIngredientsToIds = (ingredients) => {
+const mapIngredientsToIds = (ingredients: ReadonlyArray<Ingredient>) => {
   return ingredients.map(i => i._id)
 }
 
 export function CreateOrderPanel () {
-  const [isOrderDetailsVisible, setIsOrderDetailsVisible] = useState(false)
+  const [isOrderDetailsVisible, setIsOrderDetailsVisible] = useState<boolean>(false)
 
-  const { bun, mainIngredients: ingredients } = useSelector(store => store.burgerConstructor)
-  const { isAuthenticated } = useSelector(store => store.user)
+  const { bun, mainIngredients: ingredients } = useSelector((store: any) => store.burgerConstructor)
+  const { isAuthenticated } = useSelector((store: any) => store.user)
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
   const navigate = useNavigate()
   const location = useLocation()
   const createOrderHandler = useCallback(() => {
@@ -30,14 +31,15 @@ export function CreateOrderPanel () {
     }
   }, [bun, ingredients, dispatch, isAuthenticated, location, navigate])
 
-  const { createOrderRequest, createOrderError } = useSelector(store => store.order)
+  const { createOrderRequest, createOrderError } = useSelector((store: any) => store.order)
   const closeOrderDetails = () => {
     dispatch(closeOrderModal())
     setIsOrderDetailsVisible(false)
   }
 
   const sum = useMemo(() => {
-    const mainIngredientsSum = ingredients.map(ingredient => ingredient.price).reduce((a, b) => a + b, 0)
+    const mainIngredientsSum = ingredients.map((ingredient: Ingredient) => ingredient.price)
+      .reduce((a: number, b: number) => a + b, 0) as number
     return mainIngredientsSum + 2 * (bun?.price ?? 0)
   }, [bun, ingredients])
 

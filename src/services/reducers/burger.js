@@ -16,6 +16,7 @@ import {
   SET_INGREDIENT_FOR_MODAL,
   UPDATE_CONSTRUCTOR_LIST
 } from '../actions/burger'
+import { IngredientType } from '../../utils/types/common-types'
 
 const burgerIngredientsInitialState = {
   ingredients: [],
@@ -26,7 +27,7 @@ const burgerIngredientsInitialState = {
 
 export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, action) => {
   function removeAllBunCounters (newIngredientCounters) {
-    state.ingredients.filter(i => i.type === 'bun')
+    state.ingredients.filter(i => i.type === IngredientType.BUN)
       .forEach(i => delete newIngredientCounters[i._id])
   }
 

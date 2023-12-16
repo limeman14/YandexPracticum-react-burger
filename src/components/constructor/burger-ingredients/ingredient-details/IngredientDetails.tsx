@@ -1,9 +1,10 @@
 import styles from './IngredientDetails.module.css'
 import { NutritionInfoBlock } from '../nutrition-info-block/NutritionInfoBlock'
 import { useSelector } from 'react-redux'
+import { Ingredient } from "../../../../utils/types/common-types";
 
 export function IngredientDetails () {
-  const currentIngredient = useSelector(store => store.ingredientModal.current)
+  const currentIngredient = useSelector((store: any) => store.ingredientModal.current) as Ingredient
   const { image_large: imageSrc, name, calories, proteins, fat, carbohydrates } = currentIngredient
 
   return (

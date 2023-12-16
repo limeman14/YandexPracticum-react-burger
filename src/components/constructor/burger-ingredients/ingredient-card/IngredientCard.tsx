@@ -1,13 +1,17 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './IngredientCard.module.css'
-import { ingredientType } from '../../../../utils/prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIngredientForModal } from '../../../../services/actions/burger'
 import { useDrag } from 'react-dnd'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Ingredient, WithDragId } from "../../../../utils/types/common-types";
 
-export function IngredientCard ({ ingredient }) {
-  const dispatch = useDispatch()
+interface IngredientCardProps {
+  ingredient: WithDragId<Ingredient>
+}
+
+export function IngredientCard ({ ingredient }: IngredientCardProps) {
+  const dispatch = useDispatch<any>()
   const location = useLocation()
   const navigate = useNavigate()
   const { image: imageSrc, name, price, _id: id } = ingredient
@@ -25,7 +29,7 @@ export function IngredientCard ({ ingredient }) {
     })
   })
 
-  const count = useSelector(store => store.burgerIngredients.ingredientCounters[id])
+  const count = useSelector((store: any) => store.burgerIngredients.ingredientCounters[id])
 
   return (
     <li ref={dragRef} className={styles.ingredientCard__li} onClick={openIngredientDetails} style={{ opacity }}>
@@ -38,8 +42,4 @@ export function IngredientCard ({ ingredient }) {
       <p className="text text_center text_type_main-default">{name}</p>
     </li>
   )
-}
-
-IngredientCard.propTypes = {
-  ingredient: ingredientType.isRequired,
 }

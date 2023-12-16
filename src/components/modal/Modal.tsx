@@ -2,14 +2,18 @@ import { createPortal } from 'react-dom'
 import { ModalOverlay } from './modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types'
-import { useEffect } from 'react'
+import { FC, PropsWithChildren, SyntheticEvent, useEffect } from 'react'
 
-const modalDiv = document.getElementById('modal')
+interface ModalProps {
+  closeModal: () => void
+  title?: string
+}
 
-export function Modal ({ closeModal, title, children }) {
+const modalDiv = document.getElementById('modal')!
+
+export const Modal: FC<PropsWithChildren<ModalProps>> = ({ closeModal, title, children }) => {
   useEffect(() => {
-    const onEscKeyPressed = (e) => {
+    const onEscKeyPressed = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         closeModal()
       }
@@ -21,7 +25,7 @@ export function Modal ({ closeModal, title, children }) {
     }
   }, [closeModal])
 
-  const stopClickPropagation = e => e.stopPropagation()
+  const stopClickPropagation = (e: SyntheticEvent) => e.stopPropagation()
 
   return createPortal(
     (
@@ -40,10 +44,4 @@ export function Modal ({ closeModal, title, children }) {
     ),
     modalDiv
   )
-}
-
-Modal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  children: PropTypes.node.isRequired
 }

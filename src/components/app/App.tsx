@@ -21,9 +21,9 @@ import { ROUTES } from '../../utils/app-routes'
 import { getCookie } from '../../utils/cookies'
 
 function App () {
-  const { ingredientsRequest, ingredientsError } = useSelector(store => store.burgerIngredients)
-  const { getUserRequest } = useSelector(store => store.user)
-  const { current: isIngredientSetInModal } = useSelector(store => store.ingredientModal)
+  const { ingredientsRequest, ingredientsError } = useSelector((store: any) => store.burgerIngredients)
+  const { getUserRequest } = useSelector((store: any) => store.user)
+  const { current: isIngredientSetInModal } = useSelector((store: any) => store.ingredientModal)
   const location = useLocation()
   const navigate = useNavigate()
   const background = location.state && location.state.background
@@ -33,10 +33,9 @@ function App () {
     dispatch(removeIngredientFromModal())
   }
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
   useEffect(() => {
     if (getCookie('accessToken')) {
-      console.log(getCookie('accessToken'))
       dispatch(getUser())
     }
     dispatch(fetchIngredients())
@@ -56,7 +55,9 @@ function App () {
         <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />}/>
         <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage />}/>
         <Route path={ROUTES.PROFILE} element={
-          <ProtectedRoute element={<ProfilePage />} />
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
         }/>
         <Route path={ROUTES.INGREDIENT_ID} element={<IngredientDetailsPage />}/>
         <Route path={ROUTES.ANY} element={<NotFoundPage />}/>

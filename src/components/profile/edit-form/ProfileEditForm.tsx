@@ -1,31 +1,33 @@
 import styles from './ProfileEditForm.module.css'
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRef, useState } from 'react'
+import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { updateUser } from '../../../services/actions/user'
+import { ProfileForm, ProfileFormEdit } from "../../../utils/types/common-types";
+
+const defaultPassword = '******'
 
 export function ProfileEditForm () {
-  const { name, email } = useSelector(store => store.user.user)
-  const defaultPassword = '******'
-  const initialFormState = {
+  const { name, email } = useSelector((store: any) => store.user.user)
+  const initialFormState: ProfileForm = {
     name,
     email,
     password: defaultPassword
   }
-  const [formValues, setFormValues] = useState({ ...initialFormState })
-  const [formChanged, setFormChanged] = useState(false)
-  const [nameInputDisabled, setNameInputDisabled] = useState(true)
+  const [formValues, setFormValues] = useState<ProfileForm>({ ...initialFormState })
+  const [formChanged, setFormChanged] = useState<boolean>(false)
+  const [nameInputDisabled, setNameInputDisabled] = useState<boolean>(true)
 
-  const nameInputRef = useRef()
+  const nameInputRef = useRef<HTMLInputElement>(null)
   const onNameInputIconClick = () => {
     setNameInputDisabled(false)
-    nameInputRef.current.focus()
+    nameInputRef.current?.focus()
   }
   const onNameInputBlur = () => {
     setNameInputDisabled(true)
   }
 
-  const onInputChange = e => {
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { target } = e
     setFormValues({
       ...formValues,
@@ -39,15 +41,16 @@ export function ProfileEditForm () {
     setFormChanged(false)
   }
 
-  const dispatch = useDispatch()
-  const onSubmit = e => {
+  const dispatch = useDispatch<any>()
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault()
-    const newValues = {}
-    Object.entries(formValues).forEach(([ key, value ]) => {
-      if (initialFormState[key] !== value) {
-        newValues[key] = value
-      }
-    })
+    let newValues = {} as ProfileFormEdit
+    (Object.entries(formValues) as [keyof ProfileFormEdit, string][])
+      .forEach(([key, value]) => {
+        if (initialFormState[key] !== value) {
+          newValues[key] = value
+        }
+      })
     dispatch(updateUser(newValues))
     setFormChanged(false)
   }
@@ -67,7 +70,6 @@ export function ProfileEditForm () {
       />
       <EmailInput
         isIcon={true}
-        icon='EditIcon'
         placeholder='Логин'
         name='email'
         value={formValues.email}
