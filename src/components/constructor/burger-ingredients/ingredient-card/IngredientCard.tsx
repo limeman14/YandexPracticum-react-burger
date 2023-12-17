@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setIngredientForModal } from '../../../../services/actions/burger'
 import { useDrag } from 'react-dnd'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Ingredient, WithDragId } from "../../../../utils/types/common-types";
+import { Ingredient, WithDragId } from '../../../../utils/types/common'
 
 interface IngredientCardProps {
   ingredient: WithDragId<Ingredient>
@@ -36,10 +36,10 @@ export function IngredientCard ({ ingredient }: IngredientCardProps) {
       {count && <Counter count={count}/>}
       <img ref={dragPreviewRef} src={imageSrc} alt={name} className={`${styles.ingredientCard_img} mb-1 ml-4 mr-4`}/>
       <div className={`${styles.ingredientCard__priceDiv} mb-1`}>
-        <span className="text_type_digits-default pr-2">{price}</span>
+        <span className='text_type_digits-default pr-2'>{price}</span>
         <CurrencyIcon type={'primary'}/>
       </div>
-      <p className="text text_center text_type_main-default">{name}</p>
+      <p className='text text_center text_type_main-default'>{name}</p>
     </li>
   )
 }

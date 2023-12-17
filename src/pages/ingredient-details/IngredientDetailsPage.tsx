@@ -4,11 +4,12 @@ import { IngredientDetails } from '../../components/constructor/burger-ingredien
 import { useDispatch, useSelector } from 'react-redux'
 import { removeIngredientFromModal, setIngredientForModal } from '../../services/actions/burger'
 import { useEffect } from 'react'
+import { Ingredient } from '../../utils/types/common'
 
 export function IngredientDetailsPage () {
   const { id } = useParams()
-  const ingredient = useSelector(store => store.burgerIngredients.ingredients)
-    .find(item => item._id === id)
+  const ingredient = useSelector((store: any) => store.burgerIngredients.ingredients)
+    .find((item: Ingredient) => item._id === id)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -19,11 +20,11 @@ export function IngredientDetailsPage () {
     }
   }, [ingredient, dispatch])
 
-  const ingredientLoaded = useSelector(store => store.ingredientModal.current)
+  const ingredientLoaded = useSelector((store: any) => store.ingredientModal.current)
 
   return (
     ingredientLoaded && <div className={styles.ingredientDetailsPage__container}>
-      <h2 className="text text_center text_type_main-large">Детали ингредиента</h2>
+      <h2 className='text text_center text_type_main-large'>Детали ингредиента</h2>
       <IngredientDetails/>
     </div>
   )

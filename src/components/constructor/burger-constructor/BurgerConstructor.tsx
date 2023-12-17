@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
 import { addToConstructor, incrementCounter, updateConstructorList } from '../../../services/actions/burger'
 import { useCallback } from 'react'
-import { Ingredient, WithDragId } from "../../../utils/types/common-types";
+import { Ingredient, WithDragId } from '../../../utils/types/common'
 
 export function BurgerConstructor () {
   const constructorIngredients = useSelector((store: any) => store.burgerConstructor)
@@ -15,7 +15,7 @@ export function BurgerConstructor () {
   const dispatch = useDispatch()
   const [, dropTargetRef] = useDrop({
     accept: 'ingredient',
-    drop(ingredient) {
+    drop(ingredient: WithDragId<Ingredient>) {
       dispatch(addToConstructor(ingredient))
       dispatch(incrementCounter(ingredient))
     }

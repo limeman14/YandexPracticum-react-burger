@@ -2,13 +2,13 @@ import styles from './ForgotPasswordPage.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { forgotPassword } from '../../services/actions/user'
 import { ROUTES } from '../../utils/app-routes'
 
 export function ForgotPasswordPage () {
-  const { isAuthenticated, isPasswordResetting } = useSelector(store => store.user)
-  const dispatch = useDispatch()
+  const { isAuthenticated, isPasswordResetting } = useSelector((store: any) => store.user)
+  const dispatch = useDispatch<any>()
 
   const [email, setEmail] = useState('')
 
@@ -20,11 +20,11 @@ export function ForgotPasswordPage () {
     return (<Navigate to={ROUTES.RESET_PASSWORD} replace />)
   }
 
-  const onInputChange = e => {
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
 
-  const submit = e => {
+  const submit = (e: FormEvent) => {
     e.preventDefault()
     dispatch(forgotPassword(email))
   }

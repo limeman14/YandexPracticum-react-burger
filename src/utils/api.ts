@@ -1,5 +1,5 @@
 import { getCookie } from './cookies'
-import { ProfileForm, ProfileFormEdit, ResetPasswordForm } from "./types/common-types";
+import { ProfileForm, ProfileFormEdit, ResetPasswordForm } from './types/common'
 import {
   CreateOrderResponse,
   GetIngredientsResponse,
@@ -7,17 +7,17 @@ import {
   RegisterResponse,
   TokensInfoResponse,
   UserInfoResponse
-} from "./types/api-types";
+} from './types/api'
 
 const BASE_NORMA_API_URL = 'https://norma.nomoreparties.space/api'
 
 const checkResponse = <RespType>(res: Response): Promise<RespType> => {
-  return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
+  return res.ok ? res.json() : res.json().then(err => Promise.reject(err))
 }
 
 async function request<RespType> (endpoint: string, options?: RequestInit): Promise<RespType> {
-  const res = await fetch(`${BASE_NORMA_API_URL}/${endpoint}`, options);
-  return checkResponse<RespType>(res);
+  const res = await fetch(`${BASE_NORMA_API_URL}/${endpoint}`, options)
+  return checkResponse<RespType>(res)
 }
 
 export function getIngredientsRequest () {

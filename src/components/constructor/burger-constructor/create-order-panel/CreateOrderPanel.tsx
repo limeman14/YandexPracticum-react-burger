@@ -7,7 +7,7 @@ import { closeOrderModal, createOrder } from '../../../../services/actions/burge
 import { Modal } from '../../../modal/Modal'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../../../utils/app-routes'
-import { Ingredient } from "../../../../utils/types/common-types";
+import { Ingredient } from '../../../../utils/types/common'
 
 const mapIngredientsToIds = (ingredients: ReadonlyArray<Ingredient>) => {
   return ingredients.map(i => i._id)

@@ -1,5 +1,5 @@
 import styles from './ModalOverlay.module.css'
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from 'react'
 
 interface ModalOverlayProps {
   closeModal: () => void

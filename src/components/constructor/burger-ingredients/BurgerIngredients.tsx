@@ -4,7 +4,7 @@ import { groupBy } from 'lodash'
 import { IngredientCatalogSection } from './ingredient-catalog-section/IngredientCatalogSection'
 import styles from './BurgerIngredients.module.css'
 import { useSelector } from 'react-redux'
-import { Ingredient, IngredientType } from "../../../utils/types/common-types";
+import { Ingredient, IngredientType } from '../../../utils/types/common'
 
 interface TabWithRef {
   name: string,

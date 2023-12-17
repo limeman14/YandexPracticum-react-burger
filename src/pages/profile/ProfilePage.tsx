@@ -4,7 +4,11 @@ import { logout } from '../../services/actions/user'
 import { NavLink } from 'react-router-dom'
 import { ProfileEditForm } from '../../components/profile/edit-form/ProfileEditForm'
 
-const getLinkClassName = ({ isActive }) => {
+interface NavLinkProps {
+  isActive: boolean
+}
+
+const getLinkClassName = ({ isActive }: NavLinkProps) => {
   let className = `text_type_main-medium text_color_inactive ${styles.profilePage_navLink}`
   if (isActive) {
     className += ` ${styles.profilePage_navLink_active}`
@@ -13,7 +17,7 @@ const getLinkClassName = ({ isActive }) => {
 }
 
 export function ProfilePage() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
 
   const logoutHandler = () => {
     dispatch(logout())
@@ -22,16 +26,16 @@ export function ProfilePage() {
   return (
     <div className={styles.profilePage__container}>
       <div className={styles.profilePage__leftSection}>
-        <ul className="text mb-20">
+        <ul className='text mb-20'>
           <li className={styles.profilePage__navElement}>
-            <NavLink to="/profile" className={getLinkClassName}>Профиль</NavLink>
+            <NavLink to='/profile' className={getLinkClassName}>Профиль</NavLink>
           </li>
           <li className={styles.profilePage__navElement}>
-            <NavLink to="/profile/orders" className={getLinkClassName}>История заказов</NavLink>
+            <NavLink to='/profile/orders' className={getLinkClassName}>История заказов</NavLink>
           </li>
           <li className={styles.profilePage__navElement}>
             <button
-              type="button"
+              type='button'
               onClick={logoutHandler}
               className={`${styles.logout__button} text text_center text_type_main-medium text_color_inactive`}>
               Выход

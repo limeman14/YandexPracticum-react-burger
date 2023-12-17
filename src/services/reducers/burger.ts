@@ -16,17 +16,29 @@ import {
   SET_INGREDIENT_FOR_MODAL,
   UPDATE_CONSTRUCTOR_LIST
 } from '../actions/burger'
-import { IngredientType } from '../../utils/types/common-types'
+import { Ingredient, IngredientType, WithDragId } from '../../utils/types/common'
+import {
+  BurgerConstructorAction,
+  BurgerIngredientsAction,
+  IngredientModalAction,
+  OrderAction
+} from '../../utils/types/actions/burger'
 
-const burgerIngredientsInitialState = {
+type BurgerIngredientsState = {
+  ingredients: ReadonlyArray<Ingredient>
+  ingredientCounters: Record<string, number | undefined>
+  ingredientsRequest: boolean
+  ingredientsError: boolean
+}
+const burgerIngredientsInitialState: BurgerIngredientsState = {
   ingredients: [],
   ingredientCounters: {},
   ingredientsRequest: true,
   ingredientsError: false
 }
 
-export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, action) => {
-  function removeAllBunCounters (newIngredientCounters) {
+export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, action: BurgerIngredientsAction): BurgerIngredientsState => {
+  function removeAllBunCounters (newIngredientCounters: Record<string, number | undefined>) {
     state.ingredients.filter(i => i.type === IngredientType.BUN)
       .forEach(i => delete newIngredientCounters[i._id])
   }
@@ -54,7 +66,7 @@ export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, 
       }
     case INCREMENT_INGREDIENT_COUNTER: {
       const ingredient = action.ingredient
-      const isBun = ingredient.type === 'bun'
+      const isBun = ingredient.type === IngredientType.BUN
       const incrementValue = isBun ? 2 : 1
       const newIngredientCounters = { ...state.ingredientCounters }
       if (isBun) {
@@ -70,7 +82,7 @@ export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, 
     case DECREMENT_INGREDIENT_COUNTER: {
       const newIngredientCounters = { ...state.ingredientCounters }
       const id = action.id
-      const newCounterValue = newIngredientCounters[id] - 1
+      const newCounterValue = newIngredientCounters[id]! - 1
       newIngredientCounters[id] = newCounterValue === 0 ? undefined : newCounterValue
 
       return {
@@ -89,11 +101,14 @@ export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, 
   }
 }
 
-const ingredientModalInitialState = {
+type IngredientModalState = {
+  current: Ingredient | null
+}
+const ingredientModalInitialState: IngredientModalState = {
   current: null
 }
 
-export const ingredientModalReducer = (state = ingredientModalInitialState, action) => {
+export const ingredientModalReducer = (state = ingredientModalInitialState, action: IngredientModalAction): IngredientModalState => {
   switch (action.type) {
     case SET_INGREDIENT_FOR_MODAL:
       return {
@@ -110,17 +125,21 @@ export const ingredientModalReducer = (state = ingredientModalInitialState, acti
   }
 }
 
-const burgerConstructorInitialState = {
+type BurgerConstructorState = {
+  bun: WithDragId<Ingredient> | null
+  mainIngredients: ReadonlyArray<WithDragId<Ingredient>>
+}
+const burgerConstructorInitialState: BurgerConstructorState = {
   bun: null,
   mainIngredients: []
 }
 
-export const burgerConstructorReducer = (state = burgerConstructorInitialState, action) => {
+export const burgerConstructorReducer = (state = burgerConstructorInitialState, action: BurgerConstructorAction): BurgerConstructorState => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       const newState = { ...state }
       const ingredient = action.ingredient
-      if (ingredient.type === 'bun') {
+      if (ingredient.type === IngredientType.BUN) {
         newState.bun = ingredient
       } else {
         newState.mainIngredients = [...newState.mainIngredients, ingredient]
@@ -151,13 +170,18 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
   }
 }
 
-const orderInitialState = {
+type OrderState = {
+  createdOrder: number | null
+  createOrderRequest: boolean
+  createOrderError: boolean
+}
+const orderInitialState: OrderState = {
   createdOrder: null,
   createOrderRequest: false,
   createOrderError: false
 }
 
-export const orderReducer = (state = orderInitialState, action) => {
+export const orderReducer = (state = orderInitialState, action: OrderAction): OrderState => {
   switch (action.type) {
     case CREATE_ORDER_REQUEST: {
       return {

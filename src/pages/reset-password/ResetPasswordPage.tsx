@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import styles from './ResetPasswordPage.module.css'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { resetPassword } from '../../services/actions/user'
 import { ROUTES } from '../../utils/app-routes'
+import { ResetPasswordForm } from '../../utils/types/common'
 
 export function ResetPasswordPage () {
-  const { isAuthenticated, isPasswordResetSuccess, isPasswordResetting } = useSelector(store => store.user)
-  const dispatch = useDispatch()
+  const { isAuthenticated, isPasswordResetSuccess, isPasswordResetting } = useSelector((store: any) => store.user)
+  const dispatch = useDispatch<any>()
 
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<ResetPasswordForm>({
     password: '',
     token: ''
   })
@@ -27,7 +28,7 @@ export function ResetPasswordPage () {
     return (<Navigate to={ROUTES.FORGOT_PASSWORD} replace />)
   }
 
-  const onInputChange = e => {
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { target } = e
     setFormValues({
       ...formValues,
@@ -35,7 +36,7 @@ export function ResetPasswordPage () {
     })
   }
 
-  const submit = e => {
+  const submit = (e: FormEvent) => {
     e.preventDefault()
     dispatch(resetPassword(formValues))
   }

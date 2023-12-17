@@ -14,14 +14,39 @@ import {
   REGISTER_ERROR,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  RESET_PASSWORD_ERROR,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   UPDATE_USER_ERROR,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS
 } from '../actions/user'
+import { UserAction } from '../../utils/types/actions/user'
+import { UserInfo } from '../../utils/types/api'
 
-const userInitialState = {
+type UserState = {
+  user: UserInfo | {}
+  isAuthenticated: boolean
+  loginRequest: boolean
+  loginError: boolean
+  getUserRequest: boolean
+  getUserError: boolean
+  updateUserRequest: boolean
+  updateUserError: boolean
+  logoutRequest: boolean
+  logoutError: boolean
+
+  registerRequest: boolean
+  registerError: boolean
+
+  forgotPasswordRequest: boolean
+  forgotPasswordError: boolean
+  isPasswordResetting: boolean
+  resetPasswordRequest: boolean
+  resetPasswordError: boolean
+  isPasswordResetSuccess: boolean
+}
+const userInitialState: UserState = {
   user: {
     email: '',
     name: ''
@@ -47,7 +72,7 @@ const userInitialState = {
   isPasswordResetSuccess: false
 }
 
-export const userReducer = (state = userInitialState, action) => {
+export const userReducer = (state = userInitialState, action: UserAction): UserState => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return {
@@ -193,6 +218,13 @@ export const userReducer = (state = userInitialState, action) => {
         resetPasswordError: false,
         isPasswordResetting: false,
         isPasswordResetSuccess: true
+      }
+    }
+    case RESET_PASSWORD_ERROR: {
+      return {
+        ...state,
+        resetPasswordRequest: false,
+        resetPasswordError: true
       }
     }
     default:

@@ -4,7 +4,7 @@ export type ProfileFormEdit = {
   password?: string
 }
 export type ProfileForm = Readonly<Required<ProfileFormEdit>>
-
+export type LoginForm = Readonly<Omit<ProfileForm, 'name'>>
 export type ResetPasswordForm = {
   readonly password: string,
   readonly token: string

@@ -1,7 +1,7 @@
 import styles from './IngredientDetails.module.css'
 import { NutritionInfoBlock } from '../nutrition-info-block/NutritionInfoBlock'
 import { useSelector } from 'react-redux'
-import { Ingredient } from "../../../../utils/types/common-types";
+import { Ingredient } from '../../../../utils/types/common'
 
 export function IngredientDetails () {
   const currentIngredient = useSelector((store: any) => store.ingredientModal.current) as Ingredient

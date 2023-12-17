@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { decrementCounter, removeFromConstructor } from '../../../../services/actions/burger'
 import { DragEvent, useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { Ingredient, WithDragId } from "../../../../utils/types/common-types";
+import { Ingredient, WithDragId } from '../../../../utils/types/common'
 
 interface BurgerIngredientProps {
   index: number

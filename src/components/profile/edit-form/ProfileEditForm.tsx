@@ -3,7 +3,7 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { useDispatch, useSelector } from 'react-redux'
 import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { updateUser } from '../../../services/actions/user'
-import { ProfileForm, ProfileFormEdit } from "../../../utils/types/common-types";
+import { ProfileForm, ProfileFormEdit } from '../../../utils/types/common'
 
 const defaultPassword = '******'
 

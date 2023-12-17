@@ -1,7 +1,7 @@
 import styles from './IngredientCatalogSection.module.css'
 import { IngredientCard } from '../ingredient-card/IngredientCard'
 import { forwardRef } from 'react'
-import { Ingredient, WithDragId } from "../../../../utils/types/common-types";
+import { Ingredient, WithDragId } from '../../../../utils/types/common'
 
 interface IngredientCatalogSectionProps {
   headingTitle: string

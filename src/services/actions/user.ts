@@ -9,6 +9,10 @@ import {
   updateUserRequest
 } from '../../utils/api'
 import { setCookie } from '../../utils/cookies'
+import { TokensInfoResponse } from '../../utils/types/api'
+import { UserAction } from '../../utils/types/actions/user'
+import { ProfileForm, ProfileFormEdit, ResetPasswordForm } from '../../utils/types/common'
+import { Dispatch } from 'redux'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -37,13 +41,13 @@ export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST'
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR'
 
-function saveTokens (res) {
+function saveTokens (res: TokensInfoResponse) {
   setCookie('accessToken', res.accessToken)
   localStorage.setItem('refreshToken', res.refreshToken)
 }
 
-export function login (email, password) {
-  return function (dispatch) {
+export function login (email: string, password: string) {
+  return function (dispatch: Dispatch<UserAction>) {
     dispatch({
       type: LOGIN_REQUEST
     })
@@ -63,7 +67,7 @@ export function login (email, password) {
 }
 
 export function getUser() {
-  return function (dispatch) {
+  return function (dispatch: Dispatch<any>) {
     dispatch({
       type: GET_USER_REQUEST
     })
@@ -74,7 +78,7 @@ export function getUser() {
       })
     }).catch(err => {
       if (err.message === 'jwt expired') {
-        dispatch(refreshToken(getUser()));
+        dispatch(refreshToken(getUser()))
       } else {
         dispatch({
           type: GET_USER_ERROR
@@ -85,8 +89,8 @@ export function getUser() {
   }
 }
 
-export function updateUser (newValues) {
-  return function (dispatch) {
+export function updateUser (newValues: ProfileFormEdit) {
+  return function (dispatch: Dispatch<any>) {
     dispatch({
       type: UPDATE_USER_REQUEST
     })
@@ -97,7 +101,7 @@ export function updateUser (newValues) {
       })
     }).catch(err => {
       if (err.message === 'jwt expired') {
-        dispatch(refreshToken(updateUser(newValues)));
+        dispatch(refreshToken(updateUser(newValues)))
       } else {
         dispatch({
           type: UPDATE_USER_ERROR
@@ -108,7 +112,7 @@ export function updateUser (newValues) {
   }
 }
 
-const refreshToken = (nextAction) => (dispatch) => {
+const refreshToken = (nextAction: { (dispatch: Dispatch<UserAction>): void }) => (dispatch: (action: any) => void) => {
   refreshTokenRequest().then(res => {
     saveTokens(res)
     dispatch(nextAction)
@@ -116,7 +120,7 @@ const refreshToken = (nextAction) => (dispatch) => {
 }
 
 export function logout () {
-  return function (dispatch) {
+  return function (dispatch: Dispatch<UserAction>) {
     dispatch({
       type: LOGOUT_REQUEST
     })
@@ -135,8 +139,8 @@ export function logout () {
   }
 }
 
-export function register (form) {
-  return function (dispatch) {
+export function register (form: ProfileForm) {
+  return function (dispatch: Dispatch<UserAction>) {
     dispatch({
       type: REGISTER_REQUEST
     })
@@ -155,8 +159,8 @@ export function register (form) {
   }
 }
 
-export function forgotPassword (email) {
-  return function (dispatch) {
+export function forgotPassword (email: string) {
+  return function (dispatch: Dispatch<UserAction>) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST
     })
@@ -173,8 +177,8 @@ export function forgotPassword (email) {
   }
 }
 
-export function resetPassword (form) {
-  return function (dispatch) {
+export function resetPassword (form: ResetPasswordForm) {
+  return function (dispatch: (action: UserAction) => void) {
     dispatch({
       type: RESET_PASSWORD_REQUEST
     })

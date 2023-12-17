@@ -1,7 +1,7 @@
 import styles from './MenuItem.module.css'
 import { Link } from 'react-router-dom'
-import { TIconProps } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils";
-import { ReactNode } from "react";
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils'
+import { ReactNode } from 'react'
 
 interface MenuItemProps {
   icon: ({ type }: TIconProps) => ReactNode
