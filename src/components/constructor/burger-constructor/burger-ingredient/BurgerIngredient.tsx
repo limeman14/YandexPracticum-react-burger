@@ -1,23 +1,28 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerIngredient.module.css'
-import { ingredientType } from '../../../../utils/prop-types'
 import { useDispatch } from 'react-redux'
 import { decrementCounter, removeFromConstructor } from '../../../../services/actions/burger'
-import PropTypes from 'prop-types'
-import { useRef } from 'react'
+import { DragEvent, useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { Ingredient, WithDragId } from '../../../../utils/types/common'
 
-export function BurgerIngredient ({ index, ingredient, moveCard }) {
-  const dispatch = useDispatch()
+interface BurgerIngredientProps {
+  index: number
+  ingredient: WithDragId<Ingredient>
+  moveCard: (dragIndex: number, hoverIndex: number) => void
+}
+
+export function BurgerIngredient ({ index, ingredient, moveCard }: BurgerIngredientProps) {
+  const dispatch = useDispatch<any>()
   const removeIngredient = () => {
     dispatch(removeFromConstructor(ingredient.dragId))
     dispatch(decrementCounter(ingredient._id))
   }
 
-  const ref = useRef()
+  const ref = useRef<HTMLLIElement>(null)
   const [, drop] = useDrop({
     accept: 'component',
-    hover(item, monitor) {
+    hover(item: { id: string, index: number}, monitor) {
       if (!ref.current) {
         return
       }
@@ -29,7 +34,7 @@ export function BurgerIngredient ({ index, ingredient, moveCard }) {
 
       const hoverBoundingRect = ref.current?.getBoundingClientRect()
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      const clientOffset = monitor.getClientOffset()
+      const clientOffset = monitor.getClientOffset()!
       const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -53,7 +58,7 @@ export function BurgerIngredient ({ index, ingredient, moveCard }) {
   })
 
   drag(drop(ref))
-  const preventDefault = (e) => e.preventDefault()
+  const preventDefault = (e: DragEvent<HTMLLIElement>) => e.preventDefault()
 
   const { name, image, price } = ingredient
 
@@ -74,10 +79,4 @@ export function BurgerIngredient ({ index, ingredient, moveCard }) {
       />
     </li>
   )
-}
-
-BurgerIngredient.propTypes = {
-  index: PropTypes.number.isRequired,
-  ingredient: ingredientType.isRequired,
-  moveCard: PropTypes.func.isRequired
 }

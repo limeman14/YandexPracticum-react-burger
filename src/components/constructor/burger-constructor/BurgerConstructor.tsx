@@ -4,27 +4,24 @@ import styles from './BurgerConstructor.module.css'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
-import {
-  addToConstructor,
-  incrementCounter,
-  updateConstructorList
-} from '../../../services/actions/burger'
+import { addToConstructor, incrementCounter, updateConstructorList } from '../../../services/actions/burger'
 import { useCallback } from 'react'
+import { Ingredient, WithDragId } from '../../../utils/types/common'
 
 export function BurgerConstructor () {
-  const constructorIngredients = useSelector(store => store.burgerConstructor)
+  const constructorIngredients = useSelector((store: any) => store.burgerConstructor)
   const { bun, mainIngredients: ingredients } = constructorIngredients
 
   const dispatch = useDispatch()
   const [, dropTargetRef] = useDrop({
     accept: 'ingredient',
-    drop(ingredient) {
+    drop(ingredient: WithDragId<Ingredient>) {
       dispatch(addToConstructor(ingredient))
       dispatch(incrementCounter(ingredient))
     }
   })
 
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
+  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     const dragCard = ingredients[dragIndex]
     const newMainIngredients = [...ingredients]
     newMainIngredients.splice(dragIndex, 1)
@@ -49,7 +46,7 @@ export function BurgerConstructor () {
           />}
         </section>
         <ul className={`${styles.burgerConstructor__mainIngredientUl} text`}>
-          {ingredients.length > 0 && ingredients.map((ingredient, index) => {
+          {ingredients.length > 0 && ingredients.map((ingredient: WithDragId<Ingredient>, index: number) => {
             return <BurgerIngredient
               key={ingredient.dragId}
               index={index}

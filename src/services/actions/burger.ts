@@ -1,4 +1,7 @@
 import { createOrderRequest, getIngredientsRequest } from '../../utils/api'
+import { Ingredient, WithDragId } from '../../utils/types/common'
+import { BurgerConstructorAction, BurgerIngredientsAction, OrderAction } from '../../utils/types/actions/burger'
+import { Dispatch } from 'redux'
 
 export const FETCH_INGREDIENTS_REQUEST = 'FETCH_INGREDIENTS_REQUEST'
 export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS'
@@ -21,7 +24,7 @@ export const CREATE_ORDER_ERROR = 'CREATE_ORDER_ERROR'
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL'
 
 export function fetchIngredients() {
-  return function (dispatch) {
+  return function (dispatch: Dispatch<BurgerIngredientsAction>) {
     dispatch({
       type: FETCH_INGREDIENTS_REQUEST
     })
@@ -38,32 +41,32 @@ export function fetchIngredients() {
     })
   }
 }
-export function incrementCounter(ingredient) {
+export function incrementCounter (ingredient: WithDragId<Ingredient>) {
   return {
     type: INCREMENT_INGREDIENT_COUNTER,
     ingredient
   }
 }
-export function decrementCounter(id) {
+export function decrementCounter (id: string) {
   return {
     type: DECREMENT_INGREDIENT_COUNTER,
     id
   }
 }
 
-export function setIngredientForModal(ingredient) {
+export function setIngredientForModal (ingredient: WithDragId<Ingredient>) {
   return {
     type: SET_INGREDIENT_FOR_MODAL,
     ingredient
   }
 }
-export function removeIngredientFromModal() {
+export function removeIngredientFromModal () {
   return {
     type: REMOVE_INGREDIENT_FROM_MODAL
   }
 }
 
-export function addToConstructor(ingredient) {
+export function addToConstructor (ingredient: Ingredient) {
   return {
     type: ADD_INGREDIENT,
     ingredient: {
@@ -72,20 +75,21 @@ export function addToConstructor(ingredient) {
     }
   }
 }
-export function removeFromConstructor(id) {
+export function removeFromConstructor (id: number) {
   return {
     type: REMOVE_INGREDIENT,
     id
   }
 }
-export function updateConstructorList(newMainIngredients) {
+export function updateConstructorList (newMainIngredients: WithDragId<Ingredient>[]) {
   return {
     type: UPDATE_CONSTRUCTOR_LIST,
     newMainIngredients
   }
 }
 
-export const createOrder = (ingredients) => (dispatch) => {
+export const createOrder = (ingredients: ReadonlyArray<string>) =>
+  (dispatch: Dispatch<OrderAction | BurgerConstructorAction | BurgerIngredientsAction>) => {
   dispatch({
     type: CREATE_ORDER_REQUEST
   })
