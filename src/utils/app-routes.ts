@@ -7,4 +7,4 @@ export const ROUTES = {
   PROFILE: '/profile',
   INGREDIENT_ID: '/ingredients/:id',
   ANY: '*'
-}
+} as const

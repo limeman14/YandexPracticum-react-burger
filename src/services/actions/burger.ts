@@ -1,7 +1,6 @@
 import { createOrderRequest, getIngredientsRequest } from '../../utils/api'
 import { Ingredient, WithDragId } from '../../utils/types/common'
-import { BurgerConstructorAction, BurgerIngredientsAction, OrderAction } from '../../utils/types/actions/burger'
-import { Dispatch } from 'redux'
+import { AppDispatch } from '../../utils/types/hooks'
 
 export const FETCH_INGREDIENTS_REQUEST = 'FETCH_INGREDIENTS_REQUEST'
 export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS'
@@ -24,7 +23,7 @@ export const CREATE_ORDER_ERROR = 'CREATE_ORDER_ERROR'
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL'
 
 export function fetchIngredients() {
-  return function (dispatch: Dispatch<BurgerIngredientsAction>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: FETCH_INGREDIENTS_REQUEST
     })
@@ -41,7 +40,7 @@ export function fetchIngredients() {
     })
   }
 }
-export function incrementCounter (ingredient: WithDragId<Ingredient>) {
+export function incrementCounter (ingredient: Ingredient) {
   return {
     type: INCREMENT_INGREDIENT_COUNTER,
     ingredient
@@ -54,7 +53,7 @@ export function decrementCounter (id: string) {
   }
 }
 
-export function setIngredientForModal (ingredient: WithDragId<Ingredient>) {
+export function setIngredientForModal (ingredient: Ingredient) {
   return {
     type: SET_INGREDIENT_FOR_MODAL,
     ingredient
@@ -89,7 +88,7 @@ export function updateConstructorList (newMainIngredients: WithDragId<Ingredient
 }
 
 export const createOrder = (ingredients: ReadonlyArray<string>) =>
-  (dispatch: Dispatch<OrderAction | BurgerConstructorAction | BurgerIngredientsAction>) => {
+  (dispatch: AppDispatch) => {
   dispatch({
     type: CREATE_ORDER_REQUEST
   })

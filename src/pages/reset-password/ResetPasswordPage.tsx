@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import styles from './ResetPasswordPage.module.css'
@@ -6,10 +5,11 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { resetPassword } from '../../services/actions/user'
 import { ROUTES } from '../../utils/app-routes'
 import { ResetPasswordForm } from '../../utils/types/common'
+import { useDispatch, useSelector } from '../../utils/types/hooks'
 
 export function ResetPasswordPage () {
-  const { isAuthenticated, isPasswordResetSuccess, isPasswordResetting } = useSelector((store: any) => store.user)
-  const dispatch = useDispatch<any>()
+  const { isAuthenticated, isPasswordResetSuccess, isPasswordResetting } = useSelector((store) => store.user)
+  const dispatch = useDispatch()
 
   const [formValues, setFormValues] = useState<ResetPasswordForm>({
     password: '',

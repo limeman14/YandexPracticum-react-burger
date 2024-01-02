@@ -2,12 +2,12 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import styles from './CreateOrderPanel.module.css'
 import { useCallback, useMemo, useState } from 'react'
 import { OrderDetails } from '../order-details/OrderDetails'
-import { useDispatch, useSelector } from 'react-redux'
 import { closeOrderModal, createOrder } from '../../../../services/actions/burger'
 import { Modal } from '../../../modal/Modal'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../../../utils/app-routes'
 import { Ingredient } from '../../../../utils/types/common'
+import { useDispatch, useSelector } from '../../../../utils/types/hooks'
 
 const mapIngredientsToIds = (ingredients: ReadonlyArray<Ingredient>) => {
   return ingredients.map(i => i._id)
@@ -16,22 +16,22 @@ const mapIngredientsToIds = (ingredients: ReadonlyArray<Ingredient>) => {
 export function CreateOrderPanel () {
   const [isOrderDetailsVisible, setIsOrderDetailsVisible] = useState<boolean>(false)
 
-  const { bun, mainIngredients: ingredients } = useSelector((store: any) => store.burgerConstructor)
-  const { isAuthenticated } = useSelector((store: any) => store.user)
+  const { bun, mainIngredients: ingredients } = useSelector((store) => store.burgerConstructor)
+  const { isAuthenticated } = useSelector(store => store.user)
 
-  const dispatch = useDispatch<any>()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
   const createOrderHandler = useCallback(() => {
     if (isAuthenticated) {
-      dispatch(createOrder(mapIngredientsToIds([bun, bun, ...ingredients])))
+      dispatch(createOrder(mapIngredientsToIds([bun!, bun!, ...ingredients])))
       setIsOrderDetailsVisible(true)
     } else {
       navigate(ROUTES.LOGIN, { state: { from: location } })
     }
   }, [bun, ingredients, dispatch, isAuthenticated, location, navigate])
 
-  const { createOrderRequest, createOrderError } = useSelector((store: any) => store.order)
+  const { createOrderRequest, createOrderError } = useSelector((store) => store.order)
   const closeOrderDetails = () => {
     dispatch(closeOrderModal())
     setIsOrderDetailsVisible(false)

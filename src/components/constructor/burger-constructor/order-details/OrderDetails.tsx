@@ -1,9 +1,9 @@
 import styles from './OrderDetails.module.css'
 import doneImg from '../../../../images/done.svg'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../../../utils/types/hooks'
 
 export function OrderDetails () {
-  const orderNumber = useSelector((store: any) => store.order.createdOrder)
+  const orderNumber = useSelector((store) => store.order.createdOrder)
   return (
     <div className={`${styles.orderDetailsModal__div} mt-4`}>
       <span className={`${styles.orderNumber} text_center text_type_digits-large mb-8`}>{orderNumber}</span>

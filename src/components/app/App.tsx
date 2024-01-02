@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import styles from './App.module.css'
 import { AppHeader } from '../app-header/AppHeader'
-import { useDispatch, useSelector } from 'react-redux'
 import { fetchIngredients, removeIngredientFromModal } from '../../services/actions/burger'
 import './globalStyles.css'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
@@ -19,11 +18,12 @@ import { Modal } from '../modal/Modal'
 import { IngredientDetails } from '../constructor/burger-ingredients/ingredient-details/IngredientDetails'
 import { ROUTES } from '../../utils/app-routes'
 import { getCookie } from '../../utils/cookies'
+import { useDispatch, useSelector } from '../../utils/types/hooks'
 
 function App () {
-  const { ingredientsRequest, ingredientsError } = useSelector((store: any) => store.burgerIngredients)
-  const { getUserRequest } = useSelector((store: any) => store.user)
-  const { current: isIngredientSetInModal } = useSelector((store: any) => store.ingredientModal)
+  const { ingredientsRequest, ingredientsError } = useSelector((store) => store.burgerIngredients)
+  const { getUserRequest } = useSelector((store) => store.user)
+  const { current: isIngredientSetInModal } = useSelector((store) => store.ingredientModal)
   const location = useLocation()
   const navigate = useNavigate()
   const background = location.state && location.state.background
@@ -33,7 +33,7 @@ function App () {
     dispatch(removeIngredientFromModal())
   }
 
-  const dispatch = useDispatch<any>()
+  const dispatch = useDispatch()
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(getUser())

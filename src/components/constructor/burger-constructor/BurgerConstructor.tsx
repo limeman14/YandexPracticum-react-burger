@@ -2,20 +2,20 @@ import { BurgerIngredient } from './burger-ingredient/BurgerIngredient'
 import { CreateOrderPanel } from './create-order-panel/CreateOrderPanel'
 import styles from './BurgerConstructor.module.css'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
 import { addToConstructor, incrementCounter, updateConstructorList } from '../../../services/actions/burger'
 import { useCallback } from 'react'
 import { Ingredient, WithDragId } from '../../../utils/types/common'
+import { useDispatch, useSelector } from '../../../utils/types/hooks'
 
 export function BurgerConstructor () {
-  const constructorIngredients = useSelector((store: any) => store.burgerConstructor)
+  const constructorIngredients = useSelector((store) => store.burgerConstructor)
   const { bun, mainIngredients: ingredients } = constructorIngredients
 
   const dispatch = useDispatch()
   const [, dropTargetRef] = useDrop({
     accept: 'ingredient',
-    drop(ingredient: WithDragId<Ingredient>) {
+    drop(ingredient: Ingredient) {
       dispatch(addToConstructor(ingredient))
       dispatch(incrementCounter(ingredient))
     }

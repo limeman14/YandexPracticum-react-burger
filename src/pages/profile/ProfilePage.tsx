@@ -1,8 +1,8 @@
 import styles from './ProfilePage.module.css'
-import { useDispatch } from 'react-redux'
 import { logout } from '../../services/actions/user'
 import { NavLink } from 'react-router-dom'
 import { ProfileEditForm } from '../../components/profile/edit-form/ProfileEditForm'
+import { useDispatch } from '../../utils/types/hooks'
 
 interface NavLinkProps {
   isActive: boolean
@@ -17,7 +17,7 @@ const getLinkClassName = ({ isActive }: NavLinkProps) => {
 }
 
 export function ProfilePage() {
-  const dispatch = useDispatch<any>()
+  const dispatch = useDispatch()
 
   const logoutHandler = () => {
     dispatch(logout())
