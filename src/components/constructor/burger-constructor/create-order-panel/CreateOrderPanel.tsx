@@ -24,7 +24,7 @@ export function CreateOrderPanel () {
   const location = useLocation()
   const createOrderHandler = useCallback(() => {
     if (isAuthenticated) {
-      dispatch(createOrder(mapIngredientsToIds([bun!, bun!, ...ingredients])))
+      dispatch(createOrder(mapIngredientsToIds([bun!, ...ingredients, bun!])))
       setIsOrderDetailsVisible(true)
     } else {
       navigate(ROUTES.LOGIN, { state: { from: location } })

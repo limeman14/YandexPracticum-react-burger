@@ -1,10 +1,12 @@
 import styles from './IngredientDetails.module.css'
 import { NutritionInfoBlock } from '../nutrition-info-block/NutritionInfoBlock'
-import { Ingredient } from '../../../../utils/types/common'
 import { useSelector } from '../../../../utils/types/hooks'
 
 export function IngredientDetails () {
-  const currentIngredient = useSelector((store) => store.ingredientModal.current) as Ingredient
+  const currentIngredient = useSelector((store) => store.ingredientModal.current)
+  if (currentIngredient === null) {
+    return null
+  }
   const { image_large: imageSrc, name, calories, proteins, fat, carbohydrates } = currentIngredient
 
   return (

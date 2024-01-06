@@ -16,14 +16,15 @@ export function AppHeader () {
             <MenuItem
               icon={BurgerIcon}
               text='Конструктор'
-              active={pathname === '/'}
+              active={pathname === ROUTES.BASE}
             />
           </li>
           <li className='ml-2'>
             <MenuItem
               icon={ListIcon}
               text='Лента заказов'
-              active={pathname.includes('/profile/orders')}
+              path={ROUTES.ORDERS_FEED}
+              active={pathname.includes('/feed')}
             />
           </li>
         </ul>
@@ -34,8 +35,8 @@ export function AppHeader () {
           <MenuItem
             icon={ProfileIcon}
             text='Личный кабинет'
-            path='/profile'
-            active={pathname === '/profile'}
+            path={ROUTES.PROFILE}
+            active={pathname === ROUTES.PROFILE}
           />
         </div>
       </nav>

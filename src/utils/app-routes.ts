@@ -6,5 +6,7 @@ export const ROUTES = {
   RESET_PASSWORD: '/reset-password',
   PROFILE: '/profile',
   INGREDIENT_ID: '/ingredients/:id',
+  ORDERS_FEED: '/feed',
+  ORDER_FEED_ID: '/feed/:id',
   ANY: '*'
 } as const

@@ -19,11 +19,14 @@ import { IngredientDetails } from '../constructor/burger-ingredients/ingredient-
 import { ROUTES } from '../../utils/app-routes'
 import { getCookie } from '../../utils/cookies'
 import { useDispatch, useSelector } from '../../utils/types/hooks'
+import { OrderFeedPage } from '../../pages/order-feed/OrderFeedPage'
+import { removeOrderInfoFromModal } from '../../services/actions/order-info-modal'
+import { OrderFullInfo } from '../order-full-info/OrderFullInfo'
 
 function App () {
   const { ingredientsRequest, ingredientsError } = useSelector((store) => store.burgerIngredients)
   const { getUserRequest } = useSelector((store) => store.user)
-  const { current: isIngredientSetInModal } = useSelector((store) => store.ingredientModal)
+  const currentOrder = useSelector(store => store.orderModal.current)
   const location = useLocation()
   const navigate = useNavigate()
   const background = location.state && location.state.background
@@ -31,6 +34,11 @@ function App () {
   const handleIngredientModalClose = () => {
     navigate(-1)
     dispatch(removeIngredientFromModal())
+  }
+
+  const handleOrderModalClose = () => {
+    navigate(-1)
+    dispatch(removeOrderInfoFromModal())
   }
 
   const dispatch = useDispatch()
@@ -50,6 +58,7 @@ function App () {
       <AppHeader/>
       <Routes location={background || location}>
         <Route path={ROUTES.BASE} element={<ConstructorPage />}/>
+        <Route path={ROUTES.ORDERS_FEED} element={<OrderFeedPage />}/>
         <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
         <Route path={ROUTES.REGISTER} element={<RegisterPage />}/>
         <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />}/>
@@ -62,13 +71,21 @@ function App () {
         <Route path={ROUTES.INGREDIENT_ID} element={<IngredientDetailsPage />}/>
         <Route path={ROUTES.ANY} element={<NotFoundPage />}/>
       </Routes>
-      {background && isIngredientSetInModal && (
+      {background && (
         <Routes>
           <Route
             path={ROUTES.INGREDIENT_ID}
             element={
               <Modal closeModal={handleIngredientModalClose} title='Детали ингредиента'>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={ROUTES.ORDER_FEED_ID}
+            element={
+              <Modal closeModal={handleOrderModalClose} title={`#${currentOrder?.number}`}>
+                <OrderFullInfo />
               </Modal>
             }
           />
