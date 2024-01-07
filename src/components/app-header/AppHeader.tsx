@@ -24,7 +24,7 @@ export function AppHeader () {
               icon={ListIcon}
               text='Лента заказов'
               path={ROUTES.ORDERS_FEED}
-              active={pathname.includes('/feed')}
+              active={pathname.includes(ROUTES.ORDERS_FEED)}
             />
           </li>
         </ul>
@@ -36,7 +36,7 @@ export function AppHeader () {
             icon={ProfileIcon}
             text='Личный кабинет'
             path={ROUTES.PROFILE}
-            active={pathname === ROUTES.PROFILE}
+            active={pathname.includes(ROUTES.PROFILE)}
           />
         </div>
       </nav>

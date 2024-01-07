@@ -25,10 +25,6 @@
   font-weight: normal;
 }
 
-.orderCard__status {
-
-}
-
 .orderCard__footer {
   display: flex;
   justify-content: space-between;
@@ -58,9 +54,4 @@
 
 .orderCard__ingredients_image:not(:first-child) {
   margin-left: -16px;
-}
-
-.orderCard__total {
-  display: flex;
-  align-items: center;
 }

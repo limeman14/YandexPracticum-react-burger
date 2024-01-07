@@ -3,6 +3,7 @@ import { ProfileForm, ProfileFormEdit, ResetPasswordForm } from './types/common'
 import {
   CreateOrderResponse,
   GetIngredientsResponse,
+  GetOrderByIdResponse,
   LoginResponse,
   RegisterResponse,
   TokensInfoResponse,
@@ -114,5 +115,14 @@ export function resetPasswordRequest (form: ResetPasswordForm) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ ...form })
+  })
+}
+
+export function getOrderByIdRequest (id: string) {
+  return request<GetOrderByIdResponse>(`orders/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 }

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { burgerConstructorReducer, burgerIngredientsReducer, ingredientModalReducer, orderReducer } from './burger'
 import { userReducer } from './user'
-import { orderFeedStateReducer } from './web-socket'
+import { orderFeedReducer, profileOrdersReducer } from './web-socket'
 import { orderInfoModalReducer } from './order-info-modal'
 
 export const rootReducer = combineReducers({
@@ -10,6 +10,7 @@ export const rootReducer = combineReducers({
   burgerConstructor: burgerConstructorReducer,
   order: orderReducer,
   user: userReducer,
-  orderFeed: orderFeedStateReducer,
+  orderFeed: orderFeedReducer,
+  profileOrders: profileOrdersReducer,
   orderModal: orderInfoModalReducer
 })

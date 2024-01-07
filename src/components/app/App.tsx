@@ -22,6 +22,8 @@ import { useDispatch, useSelector } from '../../utils/types/hooks'
 import { OrderFeedPage } from '../../pages/order-feed/OrderFeedPage'
 import { removeOrderInfoFromModal } from '../../services/actions/order-info-modal'
 import { OrderFullInfo } from '../order-full-info/OrderFullInfo'
+import { OrderInfoPage } from '../../pages/order-info/OrderInfoPage'
+import { ProfileOrdersPage } from '../../pages/profile-orders/ProfileOrdersPage'
 
 function App () {
   const { ingredientsRequest, ingredientsError } = useSelector((store) => store.burgerIngredients)
@@ -59,6 +61,11 @@ function App () {
       <Routes location={background || location}>
         <Route path={ROUTES.BASE} element={<ConstructorPage />}/>
         <Route path={ROUTES.ORDERS_FEED} element={<OrderFeedPage />}/>
+        <Route path={ROUTES.ORDER_FEED_ID} element={
+          <OrderInfoPage
+            ordersSelector={(store) => store.orderFeed.orders}
+          />
+        }/>
         <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
         <Route path={ROUTES.REGISTER} element={<RegisterPage />}/>
         <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />}/>
@@ -68,6 +75,18 @@ function App () {
             <ProfilePage />
           </ProtectedRoute>
         }/>
+        <Route path={ROUTES.PROFILE_ORDERS} element={
+          <ProtectedRoute>
+            <ProfileOrdersPage />
+          </ProtectedRoute>
+        }
+        />
+        <Route path={ROUTES.PROFILE_ORDER_ID} element={
+          <ProtectedRoute>
+            <OrderInfoPage ordersSelector={(store) => store.profileOrders.orders}/>
+          </ProtectedRoute>
+        }
+        />
         <Route path={ROUTES.INGREDIENT_ID} element={<IngredientDetailsPage />}/>
         <Route path={ROUTES.ANY} element={<NotFoundPage />}/>
       </Routes>
@@ -83,6 +102,14 @@ function App () {
           />
           <Route
             path={ROUTES.ORDER_FEED_ID}
+            element={
+              <Modal closeModal={handleOrderModalClose} title={`#${currentOrder?.number}`}>
+                <OrderFullInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path={ROUTES.PROFILE_ORDER_ID}
             element={
               <Modal closeModal={handleOrderModalClose} title={`#${currentOrder?.number}`}>
                 <OrderFullInfo />

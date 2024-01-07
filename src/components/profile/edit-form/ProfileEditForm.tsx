@@ -56,7 +56,7 @@ export function ProfileEditForm () {
   }
 
   return (
-    <form className={`${styles.editProfileForm__form} ml-15`} onSubmit={onSubmit}>
+    <form className={styles.editProfileForm__form} onSubmit={onSubmit}>
       <Input
         disabled={nameInputDisabled}
         icon='EditIcon'

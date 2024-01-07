@@ -21,7 +21,9 @@ export const createWebSocketMiddleware: (actions: WebSocketActions, url: string,
       const { init, open, message, error, close } = wsActions
 
       if (type === init && !socket) {
-        const tokenQueryParam = withAuth ? `?token=${getCookie('accessToken')}` : ''
+        const tokenQueryParam = withAuth
+          ? `?token=${getCookie('accessToken')?.replace('Bearer ', '')?.replace(' path=/', '')}`
+          : ''
         socket = new WebSocket(url + tokenQueryParam)
       }
 

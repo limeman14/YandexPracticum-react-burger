@@ -37,6 +37,12 @@ export enum OrderStatus {
   DONE = 'done'
 }
 
+export const orderStatusMapping = {
+  [OrderStatus.CREATED]: 'Создан',
+  [OrderStatus.PENDING]: 'Готовится',
+  [OrderStatus.DONE]: 'Выполнен'
+}
+
 export type OrderInfo = {
   readonly _id: string
   readonly number: number
