@@ -3,8 +3,9 @@ import { RefObject, useCallback, useMemo, useRef, useState } from 'react'
 import { groupBy } from 'lodash'
 import { IngredientCatalogSection } from './ingredient-catalog-section/IngredientCatalogSection'
 import styles from './BurgerIngredients.module.css'
-import { useSelector } from 'react-redux'
 import { Ingredient, IngredientType } from '../../../utils/types/common'
+import { useSelector } from '../../../utils/types/hooks'
+import { getBurgerIngredients } from '../../../services/store/selectors'
 
 interface TabWithRef {
   name: string,
@@ -47,7 +48,7 @@ export function BurgerIngredients () {
     setCurrentTab(closestHeading.name)
   }, [tabs])
 
-  const data = useSelector((store: any) => store.burgerIngredients.ingredients)
+  const data = useSelector(getBurgerIngredients).ingredients
   const { bun, sauce, main } = groupBy(data, (ingredient: Ingredient) => ingredient.type)
 
   return (

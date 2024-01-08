@@ -1,0 +1,9 @@
+.orderFeed__ul {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden auto;
+  max-height: calc(100vh - 88px - 100px);
+  scrollbar-width: thin;
+  margin: 0;
+  padding: 0;
+}

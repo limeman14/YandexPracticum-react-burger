@@ -25,7 +25,7 @@ import { UserAction } from '../../utils/types/actions/user'
 import { UserInfo } from '../../utils/types/api'
 
 type UserState = {
-  user: UserInfo | {}
+  user: UserInfo
   isAuthenticated: boolean
   loginRequest: boolean
   loginError: boolean
@@ -149,7 +149,10 @@ export const userReducer = (state = userInitialState, action: UserAction): UserS
       return {
         ...state,
         isAuthenticated: false,
-        user: {},
+        user: {
+          email: '',
+          name: ''
+        },
         logoutRequest: false,
         logoutError: false
       }

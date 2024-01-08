@@ -1,19 +1,20 @@
 import styles from './LoginPage.module.css'
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../services/actions/user'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { ROUTES } from '../../utils/app-routes'
 import { LoginForm } from '../../utils/types/common'
+import { useDispatch, useSelector } from '../../utils/types/hooks'
+import { getUserStore } from '../../services/store/selectors'
 
 export function LoginPage () {
-  const { isAuthenticated } = useSelector((store: any) => store.user)
+  const { isAuthenticated } = useSelector(getUserStore)
   const [formValues, setFormValues] = useState<LoginForm>({
     email: '',
     password: ''
   })
-  const dispatch = useDispatch<any>()
+  const dispatch = useDispatch()
   const location = useLocation()
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {

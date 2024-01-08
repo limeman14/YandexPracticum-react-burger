@@ -2,6 +2,7 @@ import styles from './MenuItem.module.css'
 import { Link } from 'react-router-dom'
 import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils'
 import { ReactNode } from 'react'
+import { ROUTES } from '../../../utils/app-routes'
 
 interface MenuItemProps {
   icon: ({ type }: TIconProps) => ReactNode
@@ -10,7 +11,7 @@ interface MenuItemProps {
   path?: string
 }
 
-export function MenuItem({ icon, text, active, path = '/' }: MenuItemProps) {
+export function MenuItem({ icon, text, active, path = ROUTES.BASE }: MenuItemProps) {
   const textActive = active ? 'text_color_primary' : ''
 
   return (

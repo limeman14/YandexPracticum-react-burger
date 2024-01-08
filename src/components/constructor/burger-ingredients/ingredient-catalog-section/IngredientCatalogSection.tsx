@@ -1,11 +1,11 @@
 import styles from './IngredientCatalogSection.module.css'
 import { IngredientCard } from '../ingredient-card/IngredientCard'
 import { forwardRef } from 'react'
-import { Ingredient, WithDragId } from '../../../../utils/types/common'
+import { Ingredient } from '../../../../utils/types/common'
 
 interface IngredientCatalogSectionProps {
   headingTitle: string
-  items: ReadonlyArray<WithDragId<Ingredient>>
+  items: ReadonlyArray<Ingredient>
 }
 
 export const IngredientCatalogSection = forwardRef<HTMLHeadingElement, IngredientCatalogSectionProps>((props, ref) => {
