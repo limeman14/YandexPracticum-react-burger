@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../../../utils/app-routes'
 import { Ingredient } from '../../../../utils/types/common'
 import { useDispatch, useSelector } from '../../../../utils/types/hooks'
+import { getBurgerConstructor, getOrder, getUserStore } from '../../../../services/store/selectors'
 
 const mapIngredientsToIds = (ingredients: ReadonlyArray<Ingredient>) => {
   return ingredients.map(i => i._id)
@@ -16,8 +17,8 @@ const mapIngredientsToIds = (ingredients: ReadonlyArray<Ingredient>) => {
 export function CreateOrderPanel () {
   const [isOrderDetailsVisible, setIsOrderDetailsVisible] = useState<boolean>(false)
 
-  const { bun, mainIngredients: ingredients } = useSelector((store) => store.burgerConstructor)
-  const { isAuthenticated } = useSelector(store => store.user)
+  const { bun, mainIngredients: ingredients } = useSelector(getBurgerConstructor)
+  const { isAuthenticated } = useSelector(getUserStore)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ export function CreateOrderPanel () {
     }
   }, [bun, ingredients, dispatch, isAuthenticated, location, navigate])
 
-  const { createOrderRequest, createOrderError } = useSelector((store) => store.order)
+  const { createOrderRequest, createOrderError } = useSelector(getOrder)
   const closeOrderDetails = () => {
     dispatch(closeOrderModal())
     setIsOrderDetailsVisible(false)

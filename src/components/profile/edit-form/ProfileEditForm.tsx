@@ -4,11 +4,12 @@ import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { updateUser } from '../../../services/actions/user'
 import { ProfileForm, ProfileFormEdit } from '../../../utils/types/common'
 import { useDispatch, useSelector } from '../../../utils/types/hooks'
+import { getUserStore } from '../../../services/store/selectors'
 
 const defaultPassword = '******'
 
 export function ProfileEditForm () {
-  const { name, email } = useSelector((store) => store.user.user)
+  const { name, email } = useSelector(getUserStore).user
   const initialFormState: ProfileForm = {
     name,
     email,

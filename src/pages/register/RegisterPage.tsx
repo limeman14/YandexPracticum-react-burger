@@ -6,9 +6,10 @@ import { register } from '../../services/actions/user'
 import { ROUTES } from '../../utils/app-routes'
 import { ProfileForm } from '../../utils/types/common'
 import { useDispatch, useSelector } from '../../utils/types/hooks'
+import { getUserStore } from '../../services/store/selectors'
 
 export function RegisterPage () {
-  const { isAuthenticated } = useSelector((store) => store.user)
+  const { isAuthenticated } = useSelector(getUserStore)
   const dispatch = useDispatch()
 
   const [formValues, setFormValues] = useState<ProfileForm>({

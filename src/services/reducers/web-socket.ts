@@ -12,6 +12,7 @@ import {
   WS_PROFILE_ORDERS_INIT,
   WS_PROFILE_ORDERS_OPEN
 } from '../actions/web-socket'
+import { orderBy } from 'lodash'
 
 type OrderStatsWsState = {
   isConnected: boolean
@@ -96,11 +97,12 @@ export const profileOrdersReducer = (state = profileOrdersInitialState, action: 
       }
     case WS_PROFILE_GET_ORDERS:
       const { total, totalToday, orders } = action.payload
+      const sortedOrders = orderBy(orders, i => new Date(i.createdAt), 'desc')
       return {
         ...state,
         total,
         totalToday,
-        orders
+        orders: sortedOrders
       }
     case WS_PROFILE_ORDERS_ERROR:
       return {

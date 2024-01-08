@@ -2,9 +2,10 @@ import styles from './OrderFeed.module.css'
 import { useSelector } from '../../utils/types/hooks'
 import { OrderCard } from './order-card/OrderCard'
 import { ROUTES } from '../../utils/app-routes'
+import { getOrderFeedOrders } from '../../services/store/selectors'
 
 export function OrderFeed () {
-  const orders = useSelector(store => store.orderFeed.orders)
+  const orders = useSelector(getOrderFeedOrders)
 
   return (
     <>

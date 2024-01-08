@@ -7,9 +7,10 @@ import { addToConstructor, incrementCounter, updateConstructorList } from '../..
 import { useCallback } from 'react'
 import { Ingredient, WithDragId } from '../../../utils/types/common'
 import { useDispatch, useSelector } from '../../../utils/types/hooks'
+import { getBurgerConstructor } from '../../../services/store/selectors'
 
 export function BurgerConstructor () {
-  const constructorIngredients = useSelector((store) => store.burgerConstructor)
+  const constructorIngredients = useSelector(getBurgerConstructor)
   const { bun, mainIngredients: ingredients } = constructorIngredients
 
   const dispatch = useDispatch()

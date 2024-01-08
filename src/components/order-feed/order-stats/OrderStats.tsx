@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { groupBy } from 'lodash'
 import { OrderInfo, OrderStatus } from '../../../utils/types/common'
 import styles from './OrderStats.module.css'
+import { getOrderFeed } from '../../../services/store/selectors'
 
 const createColumns = (ordersArray: OrderInfo[]) => {
   const columns: OrderInfo[][] = []
@@ -22,7 +23,7 @@ const createColumns = (ordersArray: OrderInfo[]) => {
 }
 
 export function OrderStats () {
-  const { total, totalToday, orders } = useSelector(store => store.orderFeed)
+  const { total, totalToday, orders } = useSelector(getOrderFeed)
   const { pendingColumns, doneColumns} = useMemo(() => {
     const ordersByStatus = groupBy(orders, (order) => order.status)
     const pendingColumns = createColumns(ordersByStatus[OrderStatus.PENDING] ?? [])

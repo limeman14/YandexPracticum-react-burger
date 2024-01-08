@@ -1,6 +1,7 @@
 import { AnyAction, Middleware, MiddlewareAPI } from 'redux'
 import { AppDispatch, RootState } from '../../utils/types/hooks'
 import { getCookie } from '../../utils/cookies'
+import { getUser } from '../actions/user'
 
 export type WebSocketActions = {
   init: string
@@ -40,6 +41,9 @@ export const createWebSocketMiddleware: (actions: WebSocketActions, url: string,
           const { data } = event
           try {
             const parsedData = JSON.parse(data)
+            if (parsedData.message === 'Invalid or missing token') {
+              dispatch(getUser())
+            }
             dispatch({ type: message, payload: parsedData })
           } catch (e) {
             dispatch({ type: error, payload: event })

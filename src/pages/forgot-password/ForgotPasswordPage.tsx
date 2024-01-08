@@ -5,9 +5,10 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { forgotPassword } from '../../services/actions/user'
 import { ROUTES } from '../../utils/app-routes'
 import { useDispatch, useSelector } from '../../utils/types/hooks'
+import { getUserStore } from '../../services/store/selectors'
 
 export function ForgotPasswordPage () {
-  const { isAuthenticated, isPasswordResetting } = useSelector((store) => store.user)
+  const { isAuthenticated, isPasswordResetting } = useSelector(getUserStore)
   const dispatch = useDispatch()
 
   const [email, setEmail] = useState('')

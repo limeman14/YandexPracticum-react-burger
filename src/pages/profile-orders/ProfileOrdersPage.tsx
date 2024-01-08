@@ -5,9 +5,10 @@ import { wsProfileOrdersClose, wsProfileOrdersInit } from '../../services/action
 import { ProfileNavigation } from '../../components/profile/profile-navigation/ProfileNavigation'
 import { OrderCard } from '../../components/order-feed/order-card/OrderCard'
 import { ROUTES } from '../../utils/app-routes'
+import { getProfileOrders, getProfileOrdersOrders } from '../../services/store/selectors'
 
 export function ProfileOrdersPage () {
-  const { isLoading, error } = useSelector(store => store.profileOrders)
+  const { isLoading, error } = useSelector(getProfileOrders)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(wsProfileOrdersInit())
@@ -17,7 +18,7 @@ export function ProfileOrdersPage () {
     }
   }, [dispatch])
 
-  const orders = useSelector(store => store.profileOrders.orders)
+  const orders = useSelector(getProfileOrdersOrders)
 
   return (
     <div className={styles.profileOrders__container}>

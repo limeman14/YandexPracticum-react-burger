@@ -6,9 +6,10 @@ import { Link, Navigate, useLocation } from 'react-router-dom'
 import { ROUTES } from '../../utils/app-routes'
 import { LoginForm } from '../../utils/types/common'
 import { useDispatch, useSelector } from '../../utils/types/hooks'
+import { getUserStore } from '../../services/store/selectors'
 
 export function LoginPage () {
-  const { isAuthenticated } = useSelector((store) => store.user)
+  const { isAuthenticated } = useSelector(getUserStore)
   const [formValues, setFormValues] = useState<LoginForm>({
     email: '',
     password: ''

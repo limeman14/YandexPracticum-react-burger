@@ -4,9 +4,10 @@ import { OrderStats } from '../../components/order-feed/order-stats/OrderStats'
 import { useDispatch, useSelector } from '../../utils/types/hooks'
 import { useEffect } from 'react'
 import { wsFeedClose, wsFeedInit } from '../../services/actions/web-socket'
+import { getOrderFeed } from '../../services/store/selectors'
 
 export function OrderFeedPage () {
-  const { isLoading, error } = useSelector(store => store.orderFeed)
+  const { isLoading, error } = useSelector(getOrderFeed)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(wsFeedInit())

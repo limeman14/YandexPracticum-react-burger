@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from '../../../utils/types/hooks'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { setOrderInfoForModal } from '../../../services/actions/order-info-modal'
 import { OrderTotalPrice } from './order-total-price/OrderTotalPrice'
+import { getBurgerIngredients } from '../../../services/store/selectors'
 
 interface OrderCardProps {
   order: OrderInfo
@@ -26,7 +27,7 @@ export function OrderCard ({ order, orderModalPath, withStatus }: OrderCardProps
     navigate(orderModalPath, { state: { background: location } })
   }
 
-  const ingredientsCatalog = useSelector(store => store.burgerIngredients.ingredients)
+  const ingredientsCatalog = useSelector(getBurgerIngredients).ingredients
   const orderTotalPrice = useMemo(() => {
     const ingredientPrices = ingredientsCatalog.reduce((prev, next) => {
       prev[next._id] = next.price

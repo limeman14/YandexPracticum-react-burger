@@ -1,27 +1,52 @@
-import { useSelector } from '../../utils/types/hooks'
-import { OrderStatus, orderStatusMapping } from '../../utils/types/common'
+import { RootState, useDispatch, useSelector } from '../../utils/types/hooks'
+import { OrderInfo, OrderStatus, orderStatusMapping } from '../../utils/types/common'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './OrderFullInfo.module.css'
 import { OrderTotalPrice } from '../order-feed/order-card/order-total-price/OrderTotalPrice'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { OrderIngredient } from './order-ingredient/OrderIngredient'
 import { countBy, uniq } from 'lodash'
+import { useParams } from 'react-router-dom'
+import { getOrderById, removeOrderInfoFromModal, setOrderInfoForModal } from '../../services/actions/order-info-modal'
+import { getBurgerIngredients, getOrderModal } from '../../services/store/selectors'
 
-export function OrderFullInfo () {
-  const orderInfo = useSelector(store => store.orderModal.current)
-  const ingredientsCatalog = useSelector(store => store.burgerIngredients.ingredients)
+interface OrderFullInfoProps {
+  ordersSelector: (store: RootState) => ReadonlyArray<OrderInfo>
+}
+
+export function OrderFullInfo ({ ordersSelector }: OrderFullInfoProps) {
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const orders = useSelector(ordersSelector)
+  const currentOrderFromWs = orders.find(o => o.number.toString() === id)
+  const { current: currentOrderInfo, orderInfoRequest, orderInfoError  } = useSelector(getOrderModal)
+
+  useEffect(() => {
+    if (currentOrderFromWs) {
+      dispatch(setOrderInfoForModal(currentOrderFromWs))
+    } else {
+      if (id) {
+        dispatch(getOrderById(id))
+      }
+    }
+    return () => {
+      dispatch(removeOrderInfoFromModal())
+    }
+  }, [currentOrderFromWs, dispatch, id])
+
+  const ingredientsCatalog = useSelector(getBurgerIngredients).ingredients
 
   const orderTotalPrice = useMemo(() => {
-    const orderIngredientIds = orderInfo?.ingredients ?? []
+    const orderIngredientIds = currentOrderInfo?.ingredients ?? []
     const ingredientPrices = ingredientsCatalog.reduce((prev, next) => {
       prev[next._id] = next.price
       return prev
     }, {} as Record<string, number>)
     return orderIngredientIds.reduce((sum, id) => sum + ingredientPrices[id], 0)
-  }, [orderInfo?.ingredients, ingredientsCatalog])
+  }, [currentOrderInfo?.ingredients, ingredientsCatalog])
 
   const orderIngredients = useMemo(() => {
-    const orderIngredientIds = orderInfo?.ingredients ?? []
+    const orderIngredientIds = currentOrderInfo?.ingredients ?? []
     const orderIngredientCounters = countBy(orderIngredientIds)
     return uniq(orderIngredientIds).map(id => {
       const ingredient = ingredientsCatalog.find(ing => ing._id === id)!
@@ -32,13 +57,13 @@ export function OrderFullInfo () {
         qty: orderIngredientCounters[id],
       }
     })
-  }, [orderInfo?.ingredients, ingredientsCatalog])
+  }, [currentOrderInfo?.ingredients, ingredientsCatalog])
 
-  if (orderInfo === null) {
+  if (orderInfoRequest || orderInfoError || currentOrderInfo === null) {
     return null
   }
 
-  const { name, status, createdAt} = orderInfo
+  const { name, status, createdAt} = currentOrderInfo
   const statusAdditionalClass = status === OrderStatus.DONE ? 'text_color_success' : ''
 
   return (
