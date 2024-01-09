@@ -101,7 +101,7 @@ function App () {
           <Route
             path={ROUTES.ORDER_FEED_ID}
             element={
-              <Modal closeModal={handleModalClose} title={`#${currentOrder?.number}`}>
+              <Modal closeModal={handleModalClose} title={currentOrder?.number ? `#${currentOrder.number}`: ''}>
                 <OrderFullInfo ordersSelector={getOrderFeedOrders}/>
               </Modal>
             }
@@ -109,7 +109,7 @@ function App () {
           <Route
             path={ROUTES.PROFILE_ORDER_ID}
             element={
-              <Modal closeModal={handleModalClose} title={`#${currentOrder?.number}`}>
+              <Modal closeModal={handleModalClose} title={currentOrder?.number ? `#${currentOrder.number}`: ''}>
                 <OrderFullInfo ordersSelector={getProfileOrdersOrders}/>
               </Modal>
             }

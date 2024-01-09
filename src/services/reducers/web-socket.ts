@@ -49,11 +49,13 @@ export const orderFeedReducer = (state = initialOrderFeedState, action: OrderFee
       }
     case WS_FEED_GET_ORDERS:
       const { total, totalToday, orders } = action.payload
+      const filteredOrders = orders
+        .filter(order => order.ingredients.every(id => id != null))
       return {
         ...state,
         total,
         totalToday,
-        orders
+        orders: filteredOrders
       }
     case WS_FEED_ERROR:
       return {
@@ -97,7 +99,8 @@ export const profileOrdersReducer = (state = profileOrdersInitialState, action: 
       }
     case WS_PROFILE_GET_ORDERS:
       const { total, totalToday, orders } = action.payload
-      const sortedOrders = orderBy(orders, i => new Date(i.createdAt), 'desc')
+      const filteredOrders = orders.filter(order => order.ingredients.every(id => id != null))
+      const sortedOrders = orderBy(filteredOrders, i => new Date(i.createdAt), 'desc')
       return {
         ...state,
         total,

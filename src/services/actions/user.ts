@@ -41,7 +41,6 @@ export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR'
 
 function saveTokens (res: TokensInfoResponse) {
-  setCookie('accessToken', '', { expires: -1 })
   setCookie('accessToken', res.accessToken)
   localStorage.setItem('refreshToken', res.refreshToken)
 }
