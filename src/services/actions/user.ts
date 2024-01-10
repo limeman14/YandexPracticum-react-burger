@@ -10,9 +10,8 @@ import {
 } from '../../utils/api'
 import { setCookie } from '../../utils/cookies'
 import { TokensInfoResponse } from '../../utils/types/api'
-import { UserAction } from '../../utils/types/actions/user'
 import { ProfileForm, ProfileFormEdit, ResetPasswordForm } from '../../utils/types/common'
-import { Dispatch } from 'redux'
+import { AppDispatch, NextThunkAction } from '../../utils/types/hooks'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -47,7 +46,7 @@ function saveTokens (res: TokensInfoResponse) {
 }
 
 export function login (email: string, password: string) {
-  return function (dispatch: Dispatch<UserAction>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST
     })
@@ -67,7 +66,7 @@ export function login (email: string, password: string) {
 }
 
 export function getUser() {
-  return function (dispatch: Dispatch<any>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_REQUEST
     })
@@ -90,7 +89,7 @@ export function getUser() {
 }
 
 export function updateUser (newValues: ProfileFormEdit) {
-  return function (dispatch: Dispatch<any>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST
     })
@@ -112,7 +111,7 @@ export function updateUser (newValues: ProfileFormEdit) {
   }
 }
 
-const refreshToken = (nextAction: { (dispatch: Dispatch<UserAction>): void }) => (dispatch: (action: any) => void) => {
+const refreshToken = (nextAction: NextThunkAction) => (dispatch: AppDispatch) => {
   refreshTokenRequest().then(res => {
     saveTokens(res)
     dispatch(nextAction)
@@ -120,7 +119,7 @@ const refreshToken = (nextAction: { (dispatch: Dispatch<UserAction>): void }) =>
 }
 
 export function logout () {
-  return function (dispatch: Dispatch<UserAction>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGOUT_REQUEST
     })
@@ -140,7 +139,7 @@ export function logout () {
 }
 
 export function register (form: ProfileForm) {
-  return function (dispatch: Dispatch<UserAction>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: REGISTER_REQUEST
     })
@@ -160,7 +159,7 @@ export function register (form: ProfileForm) {
 }
 
 export function forgotPassword (email: string) {
-  return function (dispatch: Dispatch<UserAction>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST
     })
@@ -178,7 +177,7 @@ export function forgotPassword (email: string) {
 }
 
 export function resetPassword (form: ResetPasswordForm) {
-  return function (dispatch: (action: UserAction) => void) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: RESET_PASSWORD_REQUEST
     })

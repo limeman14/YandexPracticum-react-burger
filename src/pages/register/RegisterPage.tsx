@@ -2,14 +2,15 @@ import styles from './RegisterPage.module.css'
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Navigate } from 'react-router-dom'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../../services/actions/user'
 import { ROUTES } from '../../utils/app-routes'
 import { ProfileForm } from '../../utils/types/common'
+import { useDispatch, useSelector } from '../../utils/types/hooks'
+import { getUserStore } from '../../services/store/selectors'
 
 export function RegisterPage () {
-  const { isAuthenticated } = useSelector((store: any) => store.user)
-  const dispatch = useDispatch<any>()
+  const { isAuthenticated } = useSelector(getUserStore)
+  const dispatch = useDispatch()
 
   const [formValues, setFormValues] = useState<ProfileForm>({
     name: '',

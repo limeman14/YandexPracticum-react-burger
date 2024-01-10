@@ -3,6 +3,7 @@ import { ProfileForm, ProfileFormEdit, ResetPasswordForm } from './types/common'
 import {
   CreateOrderResponse,
   GetIngredientsResponse,
+  GetOrderByIdResponse,
   LoginResponse,
   RegisterResponse,
   TokensInfoResponse,
@@ -10,6 +11,7 @@ import {
 } from './types/api'
 
 const BASE_NORMA_API_URL = 'https://norma.nomoreparties.space/api'
+export const WEB_SOCKET_BASE_API_URL = 'wss://norma.nomoreparties.space/orders'
 
 const checkResponse = <RespType>(res: Response): Promise<RespType> => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err))
@@ -113,5 +115,14 @@ export function resetPasswordRequest (form: ResetPasswordForm) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ ...form })
+  })
+}
+
+export function getOrderByIdRequest (id: string) {
+  return request<GetOrderByIdResponse>(`orders/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 }

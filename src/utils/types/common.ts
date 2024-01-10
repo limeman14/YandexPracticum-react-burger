@@ -30,3 +30,25 @@ export type Ingredient = {
 }
 
 export type WithDragId<T> = { readonly dragId: number } & T
+
+export enum OrderStatus {
+  CREATED = 'created',
+  PENDING = 'pending',
+  DONE = 'done'
+}
+
+export const orderStatusMapping = {
+  [OrderStatus.CREATED]: 'Создан',
+  [OrderStatus.PENDING]: 'Готовится',
+  [OrderStatus.DONE]: 'Выполнен'
+}
+
+export type OrderInfo = {
+  readonly _id: string
+  readonly number: number
+  readonly status: OrderStatus
+  readonly createdAt: string
+  readonly updatedAt: string
+  readonly name: string
+  ingredients: ReadonlyArray<string>
+}

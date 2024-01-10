@@ -2,8 +2,8 @@ type CookieProperties = { expires?: number | Date | string } & Record<string, an
 
 export const setCookie = (name: string, value: string, props: CookieProperties = {}) => {
   props = {
-    path: '/',
-    ...props
+    ...props,
+    path: '/'
   }
 
   let exp = props.expires

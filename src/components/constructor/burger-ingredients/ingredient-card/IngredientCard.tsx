@@ -1,24 +1,22 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './IngredientCard.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { setIngredientForModal } from '../../../../services/actions/burger'
 import { useDrag } from 'react-dnd'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Ingredient, WithDragId } from '../../../../utils/types/common'
+import { Ingredient } from '../../../../utils/types/common'
+import { useSelector } from '../../../../utils/types/hooks'
+import { getBurgerIngredients } from '../../../../services/store/selectors'
 
 interface IngredientCardProps {
-  ingredient: WithDragId<Ingredient>
+  ingredient: Ingredient
 }
 
 export function IngredientCard ({ ingredient }: IngredientCardProps) {
-  const dispatch = useDispatch<any>()
   const location = useLocation()
   const navigate = useNavigate()
   const { image: imageSrc, name, price, _id: id } = ingredient
 
   const openIngredientDetails = () => {
-    dispatch(setIngredientForModal(ingredient))
-    navigate(`/ingredients/${id}`, { state: { background: location, modal: true } })
+    navigate(`/ingredients/${id}`, { state: { background: location } })
   }
 
   const [{ opacity}, dragRef, dragPreviewRef] = useDrag({
@@ -29,7 +27,7 @@ export function IngredientCard ({ ingredient }: IngredientCardProps) {
     })
   })
 
-  const count = useSelector((store: any) => store.burgerIngredients.ingredientCounters[id])
+  const count = useSelector(getBurgerIngredients).ingredientCounters[id]
 
   return (
     <li ref={dragRef} className={styles.ingredientCard__li} onClick={openIngredientDetails} style={{ opacity }}>

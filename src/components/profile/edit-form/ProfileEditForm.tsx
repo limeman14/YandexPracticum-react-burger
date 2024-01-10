@@ -1,14 +1,15 @@
 import styles from './ProfileEditForm.module.css'
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux'
 import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { updateUser } from '../../../services/actions/user'
 import { ProfileForm, ProfileFormEdit } from '../../../utils/types/common'
+import { useDispatch, useSelector } from '../../../utils/types/hooks'
+import { getUserStore } from '../../../services/store/selectors'
 
 const defaultPassword = '******'
 
 export function ProfileEditForm () {
-  const { name, email } = useSelector((store: any) => store.user.user)
+  const { name, email } = useSelector(getUserStore).user
   const initialFormState: ProfileForm = {
     name,
     email,
@@ -41,7 +42,7 @@ export function ProfileEditForm () {
     setFormChanged(false)
   }
 
-  const dispatch = useDispatch<any>()
+  const dispatch = useDispatch()
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     let newValues = {} as ProfileFormEdit
@@ -56,7 +57,7 @@ export function ProfileEditForm () {
   }
 
   return (
-    <form className={`${styles.editProfileForm__form} ml-15`} onSubmit={onSubmit}>
+    <form className={styles.editProfileForm__form} onSubmit={onSubmit}>
       <Input
         disabled={nameInputDisabled}
         icon='EditIcon'

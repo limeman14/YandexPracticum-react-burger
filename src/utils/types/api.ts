@@ -1,4 +1,4 @@
-import { Ingredient } from './common'
+import { Ingredient, OrderInfo } from './common'
 
 export type ServerResponse<T> = {
   readonly success: boolean
@@ -24,3 +24,7 @@ export type LoginResponse = ServerResponse<{ readonly user: UserInfo } & TokensI
 export type TokensInfoResponse = ServerResponse<TokensInfo>
 export type UserInfoResponse = ServerResponse<{ readonly user: UserInfo }>
 export type RegisterResponse = LoginResponse
+
+export type GetOrderByIdResponse = ServerResponse<{
+  orders: ReadonlyArray<OrderInfo>
+}>

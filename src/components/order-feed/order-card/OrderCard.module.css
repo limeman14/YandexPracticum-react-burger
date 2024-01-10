@@ -1,0 +1,57 @@
+.orderCard__li {
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  padding: 24px;
+  background: var(--background);
+  gap: 24px;
+  margin-right: 8px;
+  margin-bottom: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.orderCard__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderCard__main {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderCard__name {
+  font-weight: normal;
+}
+
+.orderCard__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orderCard__ingredients {
+  display: flex;
+  z-index: 0;
+  position: relative;
+  padding: 0;
+}
+
+.orderCard__ingredients_image {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-element);
+  border: 2px solid #801AB2;
+  border-radius: 50%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.orderCard__ingredients_image:not(:first-child) {
+  margin-left: -16px;
+}
