@@ -19,10 +19,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf build && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "./",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -46,9 +50,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.200",
     "@types/node": "^16.18.59",
     "@types/react": "^18.2.30",
     "@types/react-dom": "^18.2.14",
-    "@types/lodash": "^4.14.200"
+    "cypress": "^13.6.2",
+    "eslint-plugin-cypress": "^2.15.1",
+    "gh-pages": "^6.1.1"
   }
 }
