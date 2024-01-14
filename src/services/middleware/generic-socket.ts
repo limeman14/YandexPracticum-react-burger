@@ -22,7 +22,6 @@ export const createWebSocketMiddleware: (actions: WebSocketActions, url: string,
       const { init, open, message, error, close } = wsActions
 
       if (type === init && !socket) {
-        console.log(getCookie('accessToken'))
         const tokenQueryParam = withAuth
           ? `?token=${getCookie('accessToken')?.replace('Bearer ', '')?.replace(' path=/', '')}`
           : ''
