@@ -26,7 +26,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": ".",
+  "homepage": "https://limeman14.github.io/YandexPracticum-react-burger",
   "eslintConfig": {
     "extends": [
       "react-app",
