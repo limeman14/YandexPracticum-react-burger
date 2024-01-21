@@ -25,7 +25,7 @@ type OrderStatsWsState = {
   error?: Event
 }
 
-const initialOrderFeedState: OrderStatsWsState = {
+export const initialOrderFeedState: OrderStatsWsState = {
   isConnected: false,
   isLoading: false,
   orders: [],
@@ -75,7 +75,7 @@ export const orderFeedReducer = (state = initialOrderFeedState, action: OrderFee
   }
 }
 
-const profileOrdersInitialState: OrderStatsWsState = {
+export const profileOrdersInitialState: OrderStatsWsState = {
   isConnected: false,
   isLoading: false,
   orders: [],

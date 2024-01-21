@@ -30,7 +30,7 @@ type BurgerIngredientsState = {
   ingredientsRequest: boolean
   ingredientsError: boolean
 }
-const burgerIngredientsInitialState: BurgerIngredientsState = {
+export const burgerIngredientsInitialState: BurgerIngredientsState = {
   ingredients: [],
   ingredientCounters: {},
   ingredientsRequest: true,
@@ -104,7 +104,7 @@ export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, 
 type IngredientModalState = {
   current: Ingredient | null
 }
-const ingredientModalInitialState: IngredientModalState = {
+export const ingredientModalInitialState: IngredientModalState = {
   current: null
 }
 
@@ -129,7 +129,7 @@ type BurgerConstructorState = {
   bun: WithDragId<Ingredient> | null
   mainIngredients: ReadonlyArray<WithDragId<Ingredient>>
 }
-const burgerConstructorInitialState: BurgerConstructorState = {
+export const burgerConstructorInitialState: BurgerConstructorState = {
   bun: null,
   mainIngredients: []
 }
@@ -175,7 +175,7 @@ type OrderState = {
   createOrderRequest: boolean
   createOrderError: boolean
 }
-const orderInitialState: OrderState = {
+export const orderInitialState: OrderState = {
   createdOrder: null,
   createOrderRequest: false,
   createOrderError: false

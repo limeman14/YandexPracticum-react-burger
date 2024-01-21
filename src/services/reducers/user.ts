@@ -46,7 +46,7 @@ type UserState = {
   resetPasswordError: boolean
   isPasswordResetSuccess: boolean
 }
-const userInitialState: UserState = {
+export const userInitialState: UserState = {
   user: {
     email: '',
     name: ''

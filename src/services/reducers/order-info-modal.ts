@@ -13,7 +13,7 @@ type OrderInfoModalState = {
   orderInfoRequest: boolean,
   orderInfoError: boolean
 }
-const initialOrderInfoModalState: OrderInfoModalState = {
+export const initialOrderInfoModalState: OrderInfoModalState = {
   current: null,
   orderInfoRequest: false,
   orderInfoError: false
