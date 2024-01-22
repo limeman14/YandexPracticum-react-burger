@@ -29,6 +29,16 @@ const incorrectOrder = {
 }
 
 describe('OrderFeedReducer Tests', () => {
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = { ...initialOrderFeedState }
+
+    // @ts-ignore
+    expect(orderFeedReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
+
   it('should handle WS_FEED_INIT', () => {
     const action: OrderFeedAction = { type: WS_FEED_INIT }
 
@@ -90,6 +100,16 @@ describe('OrderFeedReducer Tests', () => {
 })
 
 describe('ProfileOrdersReducer Tests', () => {
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = { ...profileOrdersInitialState }
+
+    // @ts-ignore
+    expect(profileOrdersReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
+
   it('should handle WS_PROFILE_ORDERS_INIT', () => {
     const action: ProfileOrdersAction = { type: WS_PROFILE_ORDERS_INIT }
 

@@ -20,6 +20,16 @@ describe('OrderInfoModalReducer', () => {
     ingredients: ['1', '2']
   }
 
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = {...initialOrderInfoModalState}
+
+    // @ts-ignore
+    expect(orderInfoModalReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
+
   it('should handle SET_ORDER_INFO_FOR_MODAL', () => {
     const action: OrderInfoModalAction = { type: SET_ORDER_INFO_FOR_MODAL, current: orderInfo }
     const initialState = {...initialOrderInfoModalState}

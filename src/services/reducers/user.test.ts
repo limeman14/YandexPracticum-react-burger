@@ -7,6 +7,16 @@ describe('UserReducer Tests', () => {
     email: 'test@example.com',
     name: 'Test User'
   }
+
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = { ...userInitialState }
+
+    // @ts-ignore
+    expect(userReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
   
   it('should handle LOGIN_REQUEST', () => {
     const action: UserAction = { type: 'LOGIN_REQUEST' }

@@ -56,6 +56,16 @@ const bun: WithDragId<Ingredient> = {
 }
 
 describe('BurgerIngredientsReducer Tests', () => {
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = { ...burgerIngredientsInitialState }
+
+    // @ts-ignore
+    expect(burgerIngredientsReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
+
   it('should handle FETCH_INGREDIENTS_REQUEST', () => {
     const action: BurgerIngredientsAction = { type: FETCH_INGREDIENTS_REQUEST }
     const initialState = { ...burgerIngredientsInitialState }
@@ -133,6 +143,16 @@ describe('BurgerIngredientsReducer Tests', () => {
 })
 
 describe('IngredientModalReducer Tests', () => {
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = { ...ingredientModalInitialState }
+
+    // @ts-ignore
+    expect(ingredientModalReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
+
   it('should handle SET_INGREDIENT_FOR_MODAL', () => {
     const action: IngredientModalAction = { type: SET_INGREDIENT_FOR_MODAL, ingredient: mainIngredient }
     const initialState = {...ingredientModalInitialState}
@@ -155,6 +175,16 @@ describe('IngredientModalReducer Tests', () => {
 })
 
 describe('BurgerConstructorReducer Tests', () => {
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = { ...burgerConstructorInitialState }
+
+    // @ts-ignore
+    expect(burgerConstructorReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
+
   it('should handle ADD_INGREDIENT for bun', () => {
     const action: BurgerConstructorAction = { type: ADD_INGREDIENT, ingredient: bun }
     const initialState = {...burgerConstructorInitialState}
@@ -220,6 +250,16 @@ describe('BurgerConstructorReducer Tests', () => {
 })
 
 describe('OrderReducer Tests', () => {
+  it('should handle unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' }
+    const initialState = { ...orderInitialState }
+
+    // @ts-ignore
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState
+    })
+  })
+
   it('should handle CREATE_ORDER_REQUEST', () => {
     const action: OrderAction = { type: CREATE_ORDER_REQUEST };
     const initialState = {...orderInitialState};
