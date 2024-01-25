@@ -10,7 +10,7 @@ import {
   UserInfoResponse
 } from './types/api'
 
-const BASE_NORMA_API_URL = 'https://norma.nomoreparties.space/api'
+export const BASE_NORMA_API_URL = 'https://norma.nomoreparties.space/api'
 export const WEB_SOCKET_BASE_API_URL = 'wss://norma.nomoreparties.space/orders'
 
 const checkResponse = <RespType>(res: Response): Promise<RespType> => {

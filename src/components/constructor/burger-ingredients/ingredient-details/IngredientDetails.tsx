@@ -33,7 +33,7 @@ export function IngredientDetails () {
     <>
       <img src={imageSrc} alt={name} className={`${styles.ingredientImage} mb-4`}/>
       <span className="text_center text_type_main-medium mb-8">{name}</span>
-      <div className={styles.nutritionTable}>
+      <div className={styles.nutritionTable} data-cy='nutrition-table'>
         <NutritionInfoBlock title="Калории, ккал" value={calories}/>
         <NutritionInfoBlock title="Белки, г" value={proteins}/>
         <NutritionInfoBlock title="Жиры, г" value={fat}/>

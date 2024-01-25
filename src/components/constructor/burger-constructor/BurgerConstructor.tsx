@@ -33,7 +33,7 @@ export function BurgerConstructor () {
 
   return (
     <>
-      <div ref={dropTargetRef}>
+      <div ref={dropTargetRef} data-cy='constructor-list'>
         {!bun && ingredients.length === 0 && <div className='pl-8 mb-4 text_type_main-medium text_center'>
           Пожалуйста, перенесите сюда булку и ингридиенты для создания заказа
         </div>}
