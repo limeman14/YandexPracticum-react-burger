@@ -1,88 +1,87 @@
 # Stellar React Burger
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/limeman14/YandexPracticum-react-burger/blob/master/README.md)
+[![ru](https://img.shields.io/badge/lang-ru-yellow.svg)](https://github.com/limeman14/YandexPracticum-react-burger/blob/master/README.ru.md)
 
-Добро пожаловать в репозиторий проекта Stellar React Burger, являющегося учебным проектом, выполненным в рамках курса по React от Yandex Practicum.
+Welcome to the Stellar React Burger repository, which is an educational project completed as part of the React course from Yandex Practicum.
 
-- [Функционал](#функционал)
-- [Технологический стек](#технологический-стек)
-- [Установка и запуск](#установка-и-запуск)
-- [Запуск тестов](#запуск-тестов)
+- [Project features](#project-features)
+- [Technology stack](#technology-stack)
+- [Installation and Launch](#installation-and-launch)
+- [Running Tests](#running-tests)
 
 ---
 
-## Функционал
+## Project features
+React Burger offers the following features:
 
-React Burger предоставляет следующие возможности:
+- Creating a burger by dragging and dropping ingredients
+- Viewing information about individual burger ingredients in a modal window/on a separate page
+- User registration, authorization, and profile management
+- Placing and viewing a feed of orders in real-time using WebSocket.
 
-- Создание бургера путем перетаскивания ингредиентов
-- Просмотр информации об отдельном ингридиенте бургера в модальном окне/на отдельной странице
-- Регистрация, авторизация и работа с профилем пользователя
-- Оформление и просмотр ленты заказов в режиме реального времени посредством WebSocket.
+## Technology stack
 
-## Технологический стек
+The project uses the following key technologies:
 
-В проекте используются следующие ключевые технологии:
+- React: a frontend library for building user interfaces
+- React Router: navigation and routing in the application
+- Redux: application state management
+- TypeScript: static typing of code to enhance its reliability and simplify maintenance
+- Webpack: module and resource bundling (preconfigured during project initialization via Create React App)
+- CSS Modules: component style isolation
+- Jest: framework for unit testing
+- Cypress: framework for e2e testing
 
-- React: фронтенд-библиотека для построения пользовательских интерфейсов
-- React Router: навигация и маршрутизация в приложении
-- Redux: управление состоянием приложения
-- TypeScript: статическая типизация кода для повышения его надежности и упрощения поддержки
-- Webpack: сборка модулей и ресурсов (предварительно настроен в ходе инициализации проекта через Create React App)
-- CSS Modules: изоляция стилей компонентов
-- Jest: фреймворк для юнит-тестирования кода
-- Cypress: фреймворк для e2e-тестирования
+## Installation and Launch
 
-## Установка и запуск
+To run the project locally, it is necessary to first install NodeJS (v18 or higher). Then follow these steps:
 
-Чтобы запустить проект локально, выполните следующие шаги:
-
-1. Клонировать репозиторий:
+1. Clone the repository:
 
 `git clone https://github.com/limeman14/YandexPracticum-react-burger.git`
 
-2. Перейдите в директорию проекта:
+2. Go to the project directory:
 
 `cd YandexPracticum-react-burger`
 
-3. Установите зависимости:
+3. Install dependencies:
 
 `npm install`
 
-4. Запустите проект:
+4. Start the project:
 
 `npm start`
 
-После запуска, приложение будет доступно на [localhost:3000](http://localhost:3000), если этот порт свободен.
+After starting, the application will be available at [localhost:3000](http://localhost:3000), if this port is free.
 
-## Запуск тестов
-### Юнит-тесты
-На данный момент юнит-тестами покрыты только редьюсеры, 
-для запуска тестов проект должен быть установлен локально. 
-Выполните следующие шаги:
+## Running Tests
+### Unit Tests
+Currently, unit tests cover only the reducers. To run the tests, the project must be installed locally. Perform the following steps:
 
-1. Запустите тесты с помощью команды:
+1. Run the tests using the command:
 
 `npm test`
 
-Это запустит тестовый раннер Jest в интерактивном режиме.
-2. Для создания и просмотра покрытия тестами, выполните команду:
+This will launch the Jest test runner in interactive watch mode.
+
+2. To create and view the test coverage, execute the command:
 
 `npm run test:coverage`
 
-После выполнения команды будет сгенерирован отчёт о покрытии кода тестами в директории coverage.
+After running the command, a code coverage report will be generated in the coverage directory.
 
-### E2E-тесты
-Для примера покрыт сценарий создания заказа авторизованным пользователем (с открытием модального окна для ингредиента),
-для запуска тестов проект должен быть установлен локально.
+### E2E Tests
+For example, a scenario covered is creating an order by an authorized user (including opening the modal window for an ingredient).
+To run the tests, the project must be installed locally.
 
-1. Запустите приложение локально с помощью команды:
+1. Start the application locally using the command:
 
 `npm start`
 
-2. Запустите Cypress, для этого выполните команду:
+2. Launch Cypress by running the command:
 
 `npm run cypress:open`
 
-После того, как откроется окно с выбором типа тестирования, нужно кликнуть по `E2E Testing`,
-далее выбрать доступный браузер (по умолчанию тесты проверялись на Chrome)
+After the testing type selection window opens, click on `E2E Testing`, then select the available browser (by default, the tests were checked in Chrome).
 
-3. Выберите нужную спецификацию из списка и запустите тест.
+3. Select the required specification from the list and run the test.
